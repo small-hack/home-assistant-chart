@@ -1,6 +1,17 @@
 # home assistant helm chart
 who doesn't need more home assistant helm charts?
 
+```bash
+# add the chart repo to your helm repos
+helm repo add home-assistant https://jessebot.github.io/home-assistant-helm-chart
+
+# download the values.yaml and edit it with your own values such as YOUR hostname
+helm show values home-assistant/home-assistant > values.yaml
+
+# install the chart
+helm install --namespace home-assistant --create-namespace home-assistant/home-assistant --values values.yaml
+```
+
 # tips
 
 tip from pajikos/home-assistant for passing in usb devices via values.yaml:
