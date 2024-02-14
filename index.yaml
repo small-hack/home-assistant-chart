@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  home-assistant:
+  - apiVersion: v2
+    appVersion: 2024.2.1
+    created: "2024-02-14T14:36:22.913120245Z"
+    description: A Helm chart for home assistant on Kubernetes
+    digest: 18b7af3120288c7cd272cf7d8ad552d298960af6aa727f292b34534277c30d67
+    name: home-assistant
+    type: application
+    urls:
+    - https://github.com/jessebot/home-assistant-helm/releases/download/home-assistant-0.1.1/home-assistant-0.1.1.tgz
+    version: 0.1.1
+generated: "2024-02-14T14:36:22.913126647Z"
