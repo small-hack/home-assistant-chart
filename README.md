@@ -18,7 +18,7 @@ helm install --namespace home-assistant --create-namespace home-assistant/home-a
 
 tip from pajikos/home-assistant for passing in usb devices via values.yaml:
 
-```bash
+```yaml
 volumes:
   - hostPath:
       path: >-
