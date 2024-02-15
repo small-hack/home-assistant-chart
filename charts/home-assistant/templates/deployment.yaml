@@ -82,7 +82,8 @@ spec:
       {{- end }}
       {{- if or .Values.homeAssistant.existingConfigMap .Values.homeAssistant.configuration }}
         - name: configYaml
-          configMap: {{ if .Values.existingConfigMap }}{{ .Values.homeAssistant.existingConfigMap }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
+          configMap:
+            name: {{ if .Values.existingConfigMap }}{{ .Values.homeAssistant.existingConfigMap }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
       {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}
