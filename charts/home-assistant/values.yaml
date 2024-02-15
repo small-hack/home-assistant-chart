@@ -84,15 +84,23 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+persistence:
+  enabled: false
+  annotations: {}
+  storageClass: nil
+  existingClaim: ""
+  accessMode: "ReadWriteOnce"
+  size: "8Gi"
+
 # -- Additional volumes on the output Deployment definition.
-volumes: []
+extraVolumes: []
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
 # -- Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
+extraVolumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
@@ -102,3 +110,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+homeAssistant:
+  # -- any data you'd like to see put into your configuration.yaml
+  configuration: {}
+  ## example config
+  # http:
+  #   use_x_forwarded_for: true
+  #   trusted_proxies:
+  #     - 10.0.0.0/8

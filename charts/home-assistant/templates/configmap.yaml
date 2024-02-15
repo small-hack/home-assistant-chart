@@ -1,0 +1,14 @@
+{{- if .Values.homeAssistant.configuration }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "home-assistant.fullname" . }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+data:
+  configuration.yaml: |
+    {{- with .Values.homeAssistant.configuration }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- end }}
