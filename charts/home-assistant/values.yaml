@@ -88,9 +88,11 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 persistence:
+  # -- enable or disable persistent volumes
   enabled: false
   annotations: {}
   storageClass: nil
+  # -- use an existing persistent volume claim
   existingClaim: ""
   accessMode: "ReadWriteOnce"
   size: "8Gi"

@@ -36,8 +36,8 @@ A Helm chart for home assistant on Kubernetes
 | nodeSelector | object | `{}` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.annotations | object | `{}` |  |
-| persistence.enabled | bool | `false` |  |
-| persistence.existingClaim | string | `""` |  |
+| persistence.enabled | bool | `false` | enable or disable persistent volumes |
+| persistence.existingClaim | string | `""` | use an existing persistent volume claim |
 | persistence.size | string | `"8Gi"` |  |
 | persistence.storageClass | string | `"nil"` |  |
 | podAnnotations | object | `{}` |  |
