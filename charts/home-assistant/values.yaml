@@ -119,3 +119,5 @@ homeAssistant:
   #   use_x_forwarded_for: true
   #   trusted_proxies:
   #     - 10.0.0.0/8
+  # -- name of existing Config Map
+  existingConfigMap: ""

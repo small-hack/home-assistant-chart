@@ -1,4 +1,4 @@
-{{- if .Values.homeAssistant.configuration }}
+{{- if and (not .Values.homeAssistant.existingConfigMap) .Values.homeAssistant.configuration }}
 ---
 apiVersion: v1
 kind: ConfigMap

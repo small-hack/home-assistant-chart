@@ -80,9 +80,9 @@ spec:
           persistentVolumeClaim:
             claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
-      {{- if .Values.homeAssistant.configuration }}
+      {{- if or .Values.homeAssistant.existingConfigMap .Values.homeAssistant.configuration }}
         - name: configYaml
-          configMap: {{ include "home-assistant.name" . }}
+          configMap: {{ if .Values.existingConfigMap }}{{ .Values.homeAssistant.existingConfigMap }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
       {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}

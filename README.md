@@ -16,6 +16,29 @@ helm install --namespace home-assistant --create-namespace home-assistant/home-a
 
 ## tips
 
+### Using your own configuration.yaml
+
+make sure your ConfigMap has a key called `configuration.yaml` with in-line yaml data like this:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    argocd.argoproj.io/instance: home-assistant-app
+  name: home-assistant
+  namespace: home-assistant
+data:
+  configuration.yaml: |
+    http:
+      trusted_proxies:
+      - 10.0.0.0/8
+      use_x_forwarded_for: true
+```
+
+
+### External Devices
+
 tip from pajikos/home-assistant for passing in usb devices via values.yaml:
 
 ```yaml
