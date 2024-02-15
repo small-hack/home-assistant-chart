@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.2.1](https://img.shields.io/badge/AppVersion-2024.2.1-informational?style=flat-square)
+![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.2.1](https://img.shields.io/badge/AppVersion-2024.2.1-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -18,8 +18,6 @@ A Helm chart for home assistant on Kubernetes
 | fullnameOverride | string | `""` |  |
 | homeAssistant.configuration | object | `{}` | any data you'd like to see put into your configuration.yaml |
 | homeAssistant.existingConfigMap | string | `""` | name of existing Config Map |
-| homeAssistant.http.trusted_proxies[0] | string | `"10.0.0.0/8"` |  |
-| homeAssistant.http.use_x_forwarded_for | bool | `true` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/home-assistant/home-assistant"` |  |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
@@ -31,19 +29,21 @@ A Helm chart for home assistant on Kubernetes
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
+| livenessProbe.enabled | bool | `true` |  |
 | livenessProbe.httpGet.path | string | `"/"` |  |
 | livenessProbe.httpGet.port | string | `"http"` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.annotations | object | `{}` |  |
-| persistence.enabled | bool | `true` |  |
+| persistence.enabled | bool | `false` |  |
 | persistence.existingClaim | string | `""` |  |
 | persistence.size | string | `"8Gi"` |  |
 | persistence.storageClass | string | `"nil"` |  |
 | podAnnotations | object | `{}` |  |
 | podLabels | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
+| readinessProbe.enabled | bool | `true` |  |
 | readinessProbe.httpGet.path | string | `"/"` |  |
 | readinessProbe.httpGet.port | string | `"http"` |  |
 | replicaCount | int | `1` |  |
