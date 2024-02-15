@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.2.1](https://img.shields.io/badge/AppVersion-2024.2.1-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.2.1](https://img.shields.io/badge/AppVersion-2024.2.1-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -18,6 +18,8 @@ A Helm chart for home assistant on Kubernetes
 | fullnameOverride | string | `""` |  |
 | homeAssistant.configuration | object | `{}` | any data you'd like to see put into your configuration.yaml |
 | homeAssistant.existingConfigMap | string | `""` | name of existing Config Map |
+| homeAssistant.http.trusted_proxies[0] | string | `"10.0.0.0/8"` |  |
+| homeAssistant.http.use_x_forwarded_for | bool | `true` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/home-assistant/home-assistant"` |  |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
@@ -35,7 +37,7 @@ A Helm chart for home assistant on Kubernetes
 | nodeSelector | object | `{}` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.annotations | object | `{}` |  |
-| persistence.enabled | bool | `false` |  |
+| persistence.enabled | bool | `true` |  |
 | persistence.existingClaim | string | `""` |  |
 | persistence.size | string | `"8Gi"` |  |
 | persistence.storageClass | string | `"nil"` |  |
