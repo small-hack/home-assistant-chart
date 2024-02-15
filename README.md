@@ -1,11 +1,17 @@
 # home assistant helm chart
-who doesn't need more home assistant helm charts?
+<a href="https://github.com/small-hack/home-assistant-chart/releases"><img src="https://img.shields.io/github/v/release/small-hack/home-assistant-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a>
+Who doesn't need more home assistant helm charts?
+
+#### Features
+
+- Put a default configuration.yaml in place of your choosing.
+- Kept up to date by RenovateBot
 
 ## TLDR
 
 ```bash
 # add the chart repo to your helm repos
-helm repo add home-assistant https://jessebot.github.io/home-assistant-helm-chart
+helm repo add home-assistant https://small-hack.github.io/home-assistant-chart
 
 # download the values.yaml and edit it with your own values such as YOUR hostname
 helm show values home-assistant/home-assistant > values.yaml
