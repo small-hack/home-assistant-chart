@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.2.1](https://img.shields.io/badge/AppVersion-2024.2.1-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.2.1](https://img.shields.io/badge/AppVersion-2024.2.1-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -17,6 +17,7 @@ A Helm chart for home assistant on Kubernetes
 | extraVolumes | list | `[]` | Additional volumes on the output Deployment definition. |
 | fullnameOverride | string | `""` |  |
 | homeAssistant.configuration | object | `{}` | any data you'd like to see put into your configuration.yaml |
+| homeAssistant.existingConfigMap | string | `""` | name of existing Config Map |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/home-assistant/home-assistant"` |  |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
