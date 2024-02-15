@@ -42,7 +42,7 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: configYaml
+            - name: config-yaml
               mountPath: /configYaml
       {{- end }}
       containers:
@@ -81,7 +81,7 @@ spec:
             claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
       {{- if or .Values.homeAssistant.existingConfigMap .Values.homeAssistant.configuration }}
-        - name: configYaml
+        - name: config-yaml
           configMap:
             name: {{ if .Values.existingConfigMap }}{{ .Values.homeAssistant.existingConfigMap }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
