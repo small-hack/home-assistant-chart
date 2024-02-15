@@ -5,7 +5,9 @@ kind: ConfigMap
 metadata:
   name: {{ include "home-assistant.fullname" . }}
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-5"
+    helm.sh/resource-policy: keep
 data:
   configuration.yaml: |
     {{- with .Values.homeAssistant.configuration }}
