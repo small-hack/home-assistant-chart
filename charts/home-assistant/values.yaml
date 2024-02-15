@@ -38,6 +38,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  targetPort: 8123
 
 ingress:
   # -- enable external traffic to this pod
