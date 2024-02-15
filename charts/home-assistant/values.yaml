@@ -85,7 +85,7 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 persistence:
-  enabled: true
+  enabled: false
   annotations: {}
   storageClass: nil
   existingClaim: ""
@@ -115,9 +115,9 @@ homeAssistant:
   # -- any data you'd like to see put into your configuration.yaml
   configuration: {}
   ## example config
-  http:
-    use_x_forwarded_for: true
-    trusted_proxies:
-      - 10.0.0.0/8
+  # http:
+  #   use_x_forwarded_for: true
+  #   trusted_proxies:
+  #     - 10.0.0.0/8
   # -- name of existing Config Map
   existingConfigMap: ""
