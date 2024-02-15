@@ -30,7 +30,7 @@ spec:
       serviceAccountName: {{ include "home-assistant.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if .Values.homeAssistant.configuration }}
+      {{- if and .Values.homeAssistant.configuration .Values.persistence.enabled }}
       initContainers:
         - name: config-creation
           image: alpine:latest
@@ -78,16 +78,14 @@ spec:
       {{- if .Values.persistence.enabled }}
         - name: config
           persistentVolumeClaim:
-            claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "home-assistant.fullname" }}{{- end }}
+            claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
       {{- if .Values.homeAssistant.configuration }}
         - name: configYaml
-          configMap: {{ template "home-assistant.fullname" }}
+          configMap: {{ include "home-assistant.name" . }}
       {{- end }}
-      {{- if .Values.extraVolumes }}
       {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
       {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}

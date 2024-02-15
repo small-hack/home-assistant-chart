@@ -1,9 +1,8 @@
-{{- if .Values.persistence.enabled -}}
-{{- if not .Values.persistence.existingClaim -}}
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) -}}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "home-assistant.fullname" . }}
+  name: {{ include "home-assistant.name" . }}
   labels:
     app.kubernetes.io/name: {{ include "home-assistant.name" . }}
     helm.sh/chart: {{ include "home-assistant.chart" . }}
@@ -27,5 +26,4 @@ spec:
   storageClassName: "{{ .Values.persistence.storageClass }}"
 {{- end }}
 {{- end }}
-{{- end -}}
 {{- end -}}

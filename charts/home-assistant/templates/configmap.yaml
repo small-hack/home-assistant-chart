@@ -9,6 +9,6 @@ metadata:
 data:
   configuration.yaml: |
     {{- with .Values.homeAssistant.configuration }}
-      {{- toYaml . | nindent 6 }}
+      {{- toYaml . | nindent 4 }}
     {{- end }}
 {{- end }}
