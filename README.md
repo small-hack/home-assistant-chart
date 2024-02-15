@@ -24,8 +24,6 @@ make sure your ConfigMap has a key called `configuration.yaml` with in-line yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  labels:
-    argocd.argoproj.io/instance: home-assistant-app
   name: home-assistant
   namespace: home-assistant
 data:
