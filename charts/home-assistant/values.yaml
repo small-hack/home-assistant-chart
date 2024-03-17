@@ -118,11 +118,16 @@ affinity: {}
 
 homeAssistant:
   # -- any data you'd like to see put into your configuration.yaml
-  configuration: {}
   ## example config
-  # http:
-  #   use_x_forwarded_for: true
-  #   trusted_proxies:
-  #     - 10.0.0.0/8
+  # configuration: |
+  #   http:
+  #     use_x_forwarded_for: true
+  #     trusted_proxies:
+  #       - 10.0.0.0/8
+  configuration: ""
   # -- name of existing Config Map
   existingConfigMap: ""
+
+deconz:
+  # -- enable deconz for the conbee 1/2 for use with homeAssistant
+  enabled: false

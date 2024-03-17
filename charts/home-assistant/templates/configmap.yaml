@@ -9,8 +9,5 @@ metadata:
     "helm.sh/hook-weight": "-5"
     helm.sh/resource-policy: keep
 data:
-  configuration.yaml: |
-    {{- with .Values.homeAssistant.configuration }}
-      {{- toYaml . | nindent 4 }}
-    {{- end }}
+  configuration.yaml: {{- .Values.homeAssistant.configuration }}
 {{- end }}
