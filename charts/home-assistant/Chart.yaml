@@ -23,7 +23,6 @@ version: 0.5.0
 # It is recommended to use it with quotes.
 appVersion: "2024.2.1"
 
-
 maintainers:
   - name: "jessebot"
     email: "jessebot@linux.com"
@@ -31,6 +30,6 @@ maintainers:
 
 dependencies:
   - name: deconz 
-    version: 0.0.1
-    repository: https://small-hack.github.io/deconz
+    version: 0.1.0
+    repository: https://small-hack.github.io/home-assistant
     condition: dconz.enabled
