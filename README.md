@@ -20,17 +20,17 @@ helm show values home-assistant/home-assistant > values.yaml
 helm install --namespace home-assistant --create-namespace home-assistant/home-assistant --values values.yaml
 ```
 
-## tips
+## Tips
 
-### Using your own configuration.yaml
+### Using your own configuration.yaml ConfigMap
 
-make sure your ConfigMap has a key called `configuration.yaml` with in-line yaml data like this:
+For the ConfigMap, make sure your ConfigMap has a key called `configuration.yaml` with in-line yaml data like this:
 
 ```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: home-assistant
+  name: my-home-assistant-configmap
   namespace: home-assistant
 data:
   configuration.yaml: |
@@ -40,10 +40,17 @@ data:
       use_x_forwarded_for: true
 ```
 
+Then, you'd specify the name of your ConfigMap in your `values.yaml` like this:
+
+```yaml
+homeAssistant:
+  existingConfigMap: "my-home-assistant-configmap"
+```
+
 
 ### External Devices
 
-tip from pajikos/home-assistant for passing in usb devices via values.yaml:
+Tip from [pajikos/home-assistant](https://github.com/pajikos/home-assistant) for passing in USB devices via `values.yaml`:
 
 ```yaml
 volumes:
@@ -58,5 +65,5 @@ volumeMounts:
     name: usb
 ```
 
-## status
-demo and toy. feel free to submit PRs and Issues
+## Status
+Seemingly stable. Feel free to submit PRs and Issues.
