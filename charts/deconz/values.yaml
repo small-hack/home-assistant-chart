@@ -123,7 +123,7 @@ nodeSelector: {}
 
 # -- tolerations for tainted nodes, example:
 #  - key: usb
-#    operator: Equals
+#    operator: Equal
 #    value: true
 #    effect: NoSchedule
 tolerations: []

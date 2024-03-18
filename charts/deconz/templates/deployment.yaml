@@ -52,9 +52,9 @@ spec:
           {{- end }}
           env:
             - name: DECONZ_DEVICE
-              value: {{ .Values.deconz.devicePath }}
+              value: "{{ .Values.deconz.devicePath }}"
             - name: DECONZ_START_VERBOSE
-              value: {{ .Values.deconz.startVerbose }}
+              value: "{{ .Values.deconz.startVerbose }}"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
