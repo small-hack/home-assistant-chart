@@ -1,5 +1,7 @@
 # deconz
 
+This is under development. it might be better to use the deconz chart from truecharts for now, though please feel free to submit PRs to improve this chart in the meantime :)
+
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.26.1](https://img.shields.io/badge/AppVersion-2.26.1-informational?style=flat-square)
 
 A Helm chart for deconz on Kubernetes
