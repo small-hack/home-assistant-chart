@@ -50,6 +50,14 @@ homeAssistant:
 
 ### External Devices
 
+Make sure your device is accessible, which in the case of a USB device e.g. conbee II, will require you to install the [generic device plugin](https://github.com/squat/generic-device-plugin):
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/squat/generic-device-plugin/main/manifests/generic-device-plugin.yaml
+```
+
+#### Values.yaml
+
 Tip from [pajikos/home-assistant](https://github.com/pajikos/home-assistant) for passing in USB devices via `values.yaml`:
 
 ```yaml
