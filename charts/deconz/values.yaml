@@ -1,0 +1,143 @@
+# Default values for dconz helm chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: deconzcommunity/deconz
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+deconz:
+  # -- becomes DECONZ_WEB_PORT in env vars.
+  webPort: "8080"
+  # -- becomes DECONZ_WS_PORT. may be useful to set to: "10001"
+  wsPort: "8443"
+  # -- UID for the container user, becomes DECONZ_UID in the env vars
+  uid: "0"
+  # -- GID for the container user, becomes DECONZ_GID in the env vars
+  gid: "0"
+  # -- Override the location where deCONZ looks for the RaspBee/Conbee device. Becomes DECONZ_DEVICE: ""
+  # Examples: /dev/ttyUSB0 (conbee1), /dev/ttyACM0 (conbee2)
+  devicePath: "/dev/ttyACM0"
+  # -- becomes DECONZ_START_VERBOSE. set to 0 to turn off extra logging
+  startVerbose: 1
+  # -- becomes TZ env var. this is the timezone
+  timeZone: "Europe/Amsterdam"
+
+# -- extra environment variables you want to pass to the deconz pod
+extraEnv: {}
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+  capabilities:
+    # drop:
+    #   - ALL
+    add:
+      - NET_BIND_SERVICE
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# -- Additional volumes on the output Deployment definition. example:
+#   - hostPath:
+#       path: >-
+#         /dev/serial/...
+#       type: CharDevice
+#     name: usb
+volumes: []
+
+# -- Additional volumeMounts on the output Deployment definition. exmaple: 
+#  - mountPath: /dev/ttyACM0
+#    name: usb
+volumeMounts: []
+
+nodeSelector: {}
+
+# -- tolerations for tainted nodes, example:
+#  - key: usb
+#    operator: Equal
+#    value: true
+#    effect: NoSchedule
+tolerations: []
+
+
+# -- affinity for the pod e.g. to attract it to a specific node in the cluster
+# nodeAffinity:
+#   requiredDuringSchedulingIgnoredDuringExecution:
+#     nodeSelectorTerms:
+#       - matchExpressions:
+#         - key: 'usb'
+#           operator: In
+#           values:
+#             - 'true'
+affinity: {}
