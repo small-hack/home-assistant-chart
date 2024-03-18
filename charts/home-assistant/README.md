@@ -10,12 +10,6 @@ A Helm chart for home assistant on Kubernetes
 | ---- | ------ | --- |
 | jessebot | <jessebot@linux.com> | <https://github.com/jessebot> |
 
-## Requirements
-
-| Repository | Name | Version |
-|------------|------|---------|
-| https://small-hack.github.io/deconz | deconz | 0.0.1 |
-
 ## Values
 
 | Key | Type | Default | Description |
@@ -25,11 +19,10 @@ A Helm chart for home assistant on Kubernetes
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| deconz.enabled | bool | `false` | enable deconz for the conbee 1/2 for use with homeAssistant |
-| extraVolumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition. |
-| extraVolumes | list | `[]` | Additional volumes on the output Deployment definition. |
+| extraVolumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition. example device mount:   - mountPath: /dev/ttyACM0    name: usb |
+| extraVolumes | list | `[]` | Additional volumes on the output Deployment definition. example device as volume:   - hostPath:      path: >-        /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20230509111242-if00      type: CharDevice    name: usb |
 | fullnameOverride | string | `""` |  |
-| homeAssistant.configuration | string | `""` | any data you'd like to see put into your configuration.yaml # example config configuration: |   http:     use_x_forwarded_for: true     trusted_proxies:       - 10.0.0.0/8 |
+| homeAssistant.configuration | string | `""` | any data you'd like to see put into your configuration.yaml # example config configuration: |   # this enables proxies such as the ingress nginx controller   http:     use_x_forwarded_for: true     trusted_proxies:       - 10.0.0.0/8    mobile:    config: |
 | homeAssistant.existingConfigMap | string | `""` | name of existing Config Map |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/home-assistant/home-assistant"` |  |
@@ -60,7 +53,7 @@ A Helm chart for home assistant on Kubernetes
 | readinessProbe.httpGet.path | string | `"/"` |  |
 | readinessProbe.httpGet.port | string | `"http"` |  |
 | replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
+| resources | object | `{}` | resource requests and limits. example: for requesting a USB device from the    generic device plugin   limits:    squat.ai/serial: 1 |
 | securityContext | object | `{}` |  |
 | service.port | int | `80` |  |
 | service.targetPort | int | `8123` |  |
