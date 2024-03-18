@@ -29,7 +29,7 @@ A Helm chart for home assistant on Kubernetes
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
-| ingress.className | string | `""` |  |
+| ingress.className | string | `"nginx"` |  |
 | ingress.enabled | bool | `false` | enable external traffic to this pod |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
@@ -56,7 +56,7 @@ A Helm chart for home assistant on Kubernetes
 | resources | object | `{}` | resource requests and limits. example: for requesting a USB device from the    generic device plugin   limits:    squat.ai/serial: 1 |
 | securityContext | object | `{}` |  |
 | service.port | int | `80` |  |
-| service.targetPort | int | `8123` |  |
+| service.targetPort | int | `8123` | default port for the home home-assistant container |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
