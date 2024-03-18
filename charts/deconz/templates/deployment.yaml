@@ -66,6 +66,8 @@ spec:
               value: "{{ .Values.deconz.webPort }}"
             - name: DECONZ_WS_PORT
               value: "{{ .Values.deconz.wsPort }}"
+            - name: TZ
+              value: "{{ .Values.deconz.timeZone }}"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

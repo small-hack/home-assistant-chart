@@ -28,6 +28,8 @@ deconz:
   devicePath: "/dev/ttyACM0"
   # -- becomes DECONZ_START_VERBOSE. set to 0 to turn off extra logging
   startVerbose: 1
+  # -- becomes TZ env var. this is the timezone
+  timeZone: "Europe/Amsterdam"
 
 # -- extra environment variables you want to pass to the deconz pod
 extraEnv: {}
