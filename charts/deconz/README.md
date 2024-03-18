@@ -14,11 +14,12 @@ A Helm chart for deconz on Kubernetes
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | deconz.devicePath | string | `"/dev/ttyACM0"` | Override the location where deCONZ looks for the RaspBee/Conbee device. Becomes DECONZ_DEVICE: "" Examples: /dev/ttyUSB0 (conbee1), /dev/ttyACM0 (conbee2) |
-| deconz.gid | string | `""` | GID for the container user, becomes DECONZ_GID in the env vars. may need to set to 0 |
+| deconz.gid | string | `"0"` | GID for the container user, becomes DECONZ_GID in the env vars |
 | deconz.startVerbose | int | `1` | becomes DECONZ_START_VERBOSE. set to 0 to turn off extra logging |
-| deconz.uid | string | `""` | UID for the container user, becomes DECONZ_UID in the env vars. may need to set to 0 |
-| deconz.webPort | string | `""` | DECONZ_WEB_PORT: "10008" |
-| deconz.wsPort | string | `""` | becomes DECONZ_WS_PORT. may be useful to set to: "10001". enables websockets and deploys a websocker service |
+| deconz.timeZone | string | `"Europe/Amsterdam"` | becomes TZ env var. this is the timezone |
+| deconz.uid | string | `"0"` | UID for the container user, becomes DECONZ_UID in the env vars |
+| deconz.webPort | string | `"8080"` | becomes DECONZ_WEB_PORT in env vars. |
+| deconz.wsPort | string | `"8443"` | becomes DECONZ_WS_PORT. may be useful to set to: "10001" |
 | extraEnv | object | `{}` | extra environment variables you want to pass to the deconz pod |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -50,7 +51,7 @@ A Helm chart for deconz on Kubernetes
 | serviceAccount.automount | bool | `true` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| tolerations | list | `[]` | tolerations for tainted nodes, example:  - key: usb    operator: Equals    value: true    effect: NoSchedule |
+| tolerations | list | `[]` | tolerations for tainted nodes, example:  - key: usb    operator: Equal    value: true    effect: NoSchedule |
 | volumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition. exmaple:   - mountPath: /dev/ttyACM0    name: usb |
 | volumes | list | `[]` | Additional volumes on the output Deployment definition. example:   - hostPath:       path: >-         /dev/serial/...       type: CharDevice     name: usb |
 
