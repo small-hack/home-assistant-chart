@@ -28,8 +28,8 @@ maintainers:
     email: "jessebot@linux.com"
     url: "https://github.com/jessebot"
 
-dependencies:
-  - name: deconz 
-    version: 0.1.0
-    repository: https://small-hack.github.io/home-assistant
-    condition: dconz.enabled
+# dependencies:
+#   - name: deconz 
+#     version: 0.1.0
+#     repository: https://small-hack.github.io/home-assistant
+#     condition: dconz.enabled

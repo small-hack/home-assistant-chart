@@ -57,17 +57,12 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# -- resource requests and limits. example: for requesting a USB device from the
+#    generic device plugin
+#
+#  limits:
+#    squat.ai/serial: 1
 resources: {}
-  # -- We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
 
 livenessProbe:
   enabled: true
@@ -97,18 +92,20 @@ persistence:
   accessMode: "ReadWriteOnce"
   size: "8Gi"
 
-# -- Additional volumes on the output Deployment definition.
+# -- Additional volumes on the output Deployment definition. example device as volume:
+#
+#  - hostPath:
+#      path: >-
+#        /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20230509111242-if00
+#      type: CharDevice
+#    name: usb
 extraVolumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
 
-# -- Additional volumeMounts on the output Deployment definition.
+# -- Additional volumeMounts on the output Deployment definition. example device mount:
+#
+#  - mountPath: /dev/ttyACM0
+#    name: usb
 extraVolumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
 
 nodeSelector: {}
 
@@ -120,14 +117,25 @@ homeAssistant:
   # -- any data you'd like to see put into your configuration.yaml
   ## example config
   # configuration: |
+  #   # this enables proxies such as the ingress nginx controller
   #   http:
   #     use_x_forwarded_for: true
   #     trusted_proxies:
   #       - 10.0.0.0/8
+  #
+  #   mobile:
+  #
+  #   config:
   configuration: ""
   # -- name of existing Config Map
   existingConfigMap: ""
 
-deconz:
-  # -- enable deconz for the conbee 1/2 for use with homeAssistant
-  enabled: false
+## coming soon
+# deconz:
+#   # -- enable deconz for the conbee 1/2 for use with homeAssistant
+#   # this can be obviated by setting extraVolumes/extraVolumeMounts/resouces if
+#   # you have already installed the generic device plugin k8s daemonset.
+#   #
+#   # otherwise, checkout the parameters available in here:
+#   # https://github.com/small-hack/home-assistant-chart/tree/main/charts/deconz
+#   enabled: false

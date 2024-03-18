@@ -1,10 +1,12 @@
-# home assistant helm chart
+# Home Assistant helm chart
 <a href="https://github.com/small-hack/home-assistant-chart/releases"><img src="https://img.shields.io/github/v/release/small-hack/home-assistant-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a><br />
-Who doesn't need more home assistant helm charts?
+Who doesn't need more home assistant helm charts? This is a generic home assistant chart with basic features. It was written for use via [this Argo CD app](https://github.com/small-hack/argocd-apps/tree/main/home-assistant) which we deploy on metal with [`smol-k8s-lab`](https://github.com/small-hack/smol-k8s-lab).
 
 #### Features
 
-- Put a default configuration.yaml in place of your choosing.
+- Put a default configuration.yaml in place of your choosing with either:
+  - your own ConfigMap
+  - specifying an in-line yaml string for us to render as a ConfigMap for you
 - Kept up to date by RenovateBot
 
 ## TLDR
@@ -22,7 +24,39 @@ helm install --namespace home-assistant --create-namespace home-assistant/home-a
 
 ## Tips
 
-### Using your own configuration.yaml ConfigMap
+
+### Unit system, Temp Unit, and Time Zone
+
+```yaml
+homeAssistant:
+  configuration: |
+    homeassistant:
+      time_zone: Europe/Amsterdam
+      temperature_unit: C
+      unit_system: metric
+```
+
+### Making Ingress Nginx work for public domains
+
+I had to add the IP range of the k8s cluster to my trusted proxies in my home assistant `configuration.yaml` (also since this was public, I needed to declare an `external_url`).
+This is what I added to my `values.yaml` to do that through this chart:
+
+```yaml
+homeAssistant:
+  configuration: |
+    # this sets your extenral url
+    homeassistant:
+      external_url: 'https://iot.examplesforgooddogs.com'
+
+    # this enables proxies such as the ingress nginx controller
+    http:
+      use_x_forwarded_for: true
+      trusted_proxies:
+        - 10.0.0.0/8
+```
+
+
+### Using an existing ConfigMap for configuration.yaml
 
 For the ConfigMap, make sure your ConfigMap has a key called `configuration.yaml` with in-line yaml data like this:
 
@@ -48,9 +82,9 @@ homeAssistant:
 ```
 
 
-### External Devices
+### USB Devices
 
-Make sure your device is accessible, which in the case of a USB device e.g. conbee II, will require you to install the [generic device plugin](https://github.com/squat/generic-device-plugin):
+If you're on metal, make sure your device is accessible, which in the case of a USB device e.g. conbee II, will require you to install the [generic device plugin](https://github.com/squat/generic-device-plugin):
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/squat/generic-device-plugin/main/manifests/generic-device-plugin.yaml
@@ -73,5 +107,16 @@ volumeMounts:
     name: usb
 ```
 
+### Mobile config
+
+If you're new to home assistant, you may be wondering how you connect to the companion app on your phone. This requires you to put a key with no value called `mobile:` in the `configuration.yaml`. This would break your values.yaml depending on the gitops solution you're using, so we take the configuration as an in-line yaml block string instead like this:
+
+```yaml
+homeAssistant:
+  configuration: |
+    # this has no value
+    mobile:
+```
+
 ## Status
-Seemingly stable. Feel free to submit PRs and Issues.
+Seemingly stable. Feel free to submit PRs and Issues though :)
