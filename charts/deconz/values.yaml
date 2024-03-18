@@ -17,10 +17,10 @@ fullnameOverride: ""
 deconz:
   # -- DECONZ_WEB_PORT: "10008"
   webPort: ""
-  # -- UID for the container user, becomes DECONZ_UID in the env vars. may need to set to 0
-  uid: ""
-  # -- GID for the container user, becomes DECONZ_GID in the env vars. may need to set to 0
-  gid: ""
+  # -- UID for the container user, becomes DECONZ_UID in the env vars
+  uid: "0"
+  # -- GID for the container user, becomes DECONZ_GID in the env vars
+  gid: "0"
   # -- Override the location where deCONZ looks for the RaspBee/Conbee device. Becomes DECONZ_DEVICE: ""
   # Examples: /dev/ttyUSB0 (conbee1), /dev/ttyACM0 (conbee2)
   devicePath: "/dev/ttyACM0"

@@ -55,6 +55,10 @@ spec:
               value: "{{ .Values.deconz.devicePath }}"
             - name: DECONZ_START_VERBOSE
               value: "{{ .Values.deconz.startVerbose }}"
+            - name: DECONZ_UID
+              value: "{{ .Values.deconz.uid }}"
+            - name: DECONZ_GID
+              value: "{{ .Values.deconz.gid }}"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
