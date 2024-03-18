@@ -38,7 +38,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.deconz.webPort }}
+              protocol: TCP
+            - name: websockets
+              containerPort: {{ .Values.deconz.wsPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -59,6 +62,10 @@ spec:
               value: "{{ .Values.deconz.uid }}"
             - name: DECONZ_GID
               value: "{{ .Values.deconz.gid }}"
+            - name: DECONZ_WEB_PORT
+              value: "{{ .Values.deconz.webPort }}"
+            - name: DECONZ_WS_PORT
+              value: "{{ .Values.deconz.wsPort }}"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

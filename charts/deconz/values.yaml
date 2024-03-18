@@ -15,8 +15,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 deconz:
-  # -- DECONZ_WEB_PORT: "10008"
-  webPort: ""
+  # -- becomes DECONZ_WEB_PORT in env vars.
+  webPort: "8080"
+  # -- becomes DECONZ_WS_PORT. may be useful to set to: "10001"
+  wsPort: "8443"
   # -- UID for the container user, becomes DECONZ_UID in the env vars
   uid: "0"
   # -- GID for the container user, becomes DECONZ_GID in the env vars
@@ -26,8 +28,6 @@ deconz:
   devicePath: "/dev/ttyACM0"
   # -- becomes DECONZ_START_VERBOSE. set to 0 to turn off extra logging
   startVerbose: 1
-  # -- becomes DECONZ_WS_PORT. may be useful to set to: "10001". enables websockets and deploys a websocker service
-  wsPort: ""
 
 # -- extra environment variables you want to pass to the deconz pod
 extraEnv: {}
