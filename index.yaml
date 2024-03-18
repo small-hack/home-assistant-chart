@@ -1,6 +1,31 @@
 apiVersion: v1
 entries:
+  deconz:
+  - apiVersion: v2
+    appVersion: 2.26.1
+    created: "2024-03-18T13:32:33.776952619Z"
+    description: A Helm chart for deconz on Kubernetes
+    digest: c5e4bb502363ff7f1495301778c0e165e36ab7965ab6ed70194c2e13f9a5a5e9
+    name: deconz
+    type: application
+    urls:
+    - https://github.com/small-hack/home-assistant-chart/releases/download/deconz-0.1.0/deconz-0.1.0.tgz
+    version: 0.1.0
   home-assistant:
+  - apiVersion: v2
+    appVersion: 2024.2.1
+    created: "2024-03-18T13:32:33.895188603Z"
+    description: A Helm chart for home assistant on Kubernetes
+    digest: 55c48a846bcf87a7950432cc7d9e11d209798cce0d19229ab8aa530824dc9dea
+    maintainers:
+    - email: jessebot@linux.com
+      name: jessebot
+      url: https://github.com/jessebot
+    name: home-assistant
+    type: application
+    urls:
+    - https://github.com/small-hack/home-assistant-chart/releases/download/home-assistant-0.4.0/home-assistant-0.4.0.tgz
+    version: 0.4.0
   - apiVersion: v2
     appVersion: 2024.2.1
     created: "2024-02-15T16:13:47.95974561Z"
@@ -91,4 +116,4 @@ entries:
     urls:
     - https://github.com/jessebot/home-assistant-helm/releases/download/home-assistant-0.1.1/home-assistant-0.1.1.tgz
     version: 0.1.1
-generated: "2024-02-15T16:13:47.95980477Z"
+generated: "2024-03-18T13:32:33.895238116Z"
