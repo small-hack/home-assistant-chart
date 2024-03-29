@@ -129,12 +129,3 @@ homeAssistant:
   configuration: ""
   # -- name of existing Config Map
   existingConfigMap: ""
-
-deconz:
-  # -- enable deconz for the conbee 1/2 for use with homeAssistant
-  # this can be obviated by setting extraVolumes/extraVolumeMounts/resouces if
-  # you have already installed the generic device plugin k8s daemonset.
-  #
-  # otherwise, checkout the parameters available in here:
-  # https://github.com/small-hack/home-assistant-chart/tree/main/charts/deconz
-  enabled: false
