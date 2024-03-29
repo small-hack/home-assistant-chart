@@ -95,16 +95,35 @@ kubectl apply -f https://raw.githubusercontent.com/squat/generic-device-plugin/m
 Tip from [pajikos/home-assistant](https://github.com/pajikos/home-assistant) for passing in USB devices via `values.yaml`:
 
 ```yaml
-volumes:
-  - hostPath:
+extraVolumes:
+  - name: usb
+    hostPath:
       path: >-
         /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20230509111242-if00
       type: CharDevice
-    name: usb
 
-volumeMounts:
-  - mountPath: /dev/ttyACM0
-    name: usb
+extraVolumeMounts:
+  - name: usb
+    mountPath: /dev/ttyACM0
+    # note that this is readonly to prevent security issues
+    readOnly: true
+```
+
+### Bluetooth devices
+
+If you're on metal and using a USB bluetooth apator of some sort, the process is a little different from the above USB Devices section. You probably want to mount dbus. See a `values.yaml` example here:
+
+```yaml
+extraVolumes:
+  - name: bluetooth
+    hostPath:
+      path: /run/dbus
+
+extraVolumeMounts:
+  - name: bluetooth
+    mountPath: /run/dbus
+    # note that this is readonly to prevent security issues
+    readOnly: true
 ```
 
 ### Mobile config
