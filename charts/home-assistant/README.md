@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.2.1](https://img.shields.io/badge/AppVersion-2024.2.1-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.3](https://img.shields.io/badge/AppVersion-2024.3-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -9,6 +9,12 @@ A Helm chart for home assistant on Kubernetes
 | Name | Email | Url |
 | ---- | ------ | --- |
 | jessebot | <jessebot@linux.com> | <https://github.com/jessebot> |
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://small-hack.github.io/home-assistant | deconz | 0.1.0 |
 
 ## Values
 
@@ -19,6 +25,7 @@ A Helm chart for home assistant on Kubernetes
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| deconz.enabled | bool | `false` | enable deconz for the conbee 1/2 for use with homeAssistant this can be obviated by setting extraVolumes/extraVolumeMounts/resouces if you have already installed the generic device plugin k8s daemonset.  otherwise, checkout the parameters available in here: https://github.com/small-hack/home-assistant-chart/tree/main/charts/deconz |
 | extraVolumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition. example device mount:   - mountPath: /dev/ttyACM0    name: usb |
 | extraVolumes | list | `[]` | Additional volumes on the output Deployment definition. example device as volume:   - hostPath:      path: >-        /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20230509111242-if00      type: CharDevice    name: usb |
 | fullnameOverride | string | `""` |  |

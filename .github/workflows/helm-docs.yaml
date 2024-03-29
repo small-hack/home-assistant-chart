@@ -7,7 +7,7 @@ on:
       - 'charts/home-assistant/values.yaml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   update-docs:
@@ -26,7 +26,8 @@ jobs:
       - uses: EndBug/add-and-commit@v9
         name: commit helm docs changes
         with:
-          add: 'charts/matrix/README.md'
+          add: 'charts/home-assistant/README.md'
           author_name: jessebot
           committer_name: friend
           message: 'Automated GHA - Updating helm docs'
+          push: origin HEAD:${{ github.head_ref }}
