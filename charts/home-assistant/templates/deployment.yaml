@@ -30,7 +30,7 @@ spec:
       serviceAccountName: {{ include "home-assistant.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if and .Values.homeAssistant.configuration .Values.persistence.enabled }}
+      {{- if and (or .Values.homeAssistant.configuration .Values.homeAssistant.existingConfigurationConfigMap) .Values.persistence.enabled }}
       initContainers:
         - name: config-creation
           image: alpine:latest
@@ -38,12 +38,28 @@ spec:
           command:
             - "sh"
             - "-c"
-            - "cp /configYaml/configuration.yaml /config"
+            - |
+              cp /configYaml/config/configuration.yaml /config && \
+              if test -f /configYaml/themes/themes.yaml; then cp /configYaml/themes/themes.yaml /config; else touch /config/themes.yaml; fi && \
+              if test -f /configYaml/automations/automations.yaml; then cp /configYaml/automations/automations.yaml /config; else touch /config/automations.yaml; fi && \
+              if test -f /configYaml/scenes/scenes.yaml; then cp /configYaml/scenes/scenes.yaml /config; else touch /config/scenes.yaml; fi
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: config-yaml
-              mountPath: /configYaml
+            - name: configuration-yaml
+              mountPath: /configYaml/config
+            {{- if or .Values.homeAssistant.themes .Values.homeAssistant.existingThemesConfigMap }}
+            - name: themes-yaml
+              mountPath: /configYaml/themes
+            {{- end }}
+            {{- if or .Values.homeAssistant.automations .Values.homeAssistant.existingAutomationsConfigMap }}
+            - name: automations-yaml
+              mountPath: /configYaml/automations
+            {{- end }}
+            {{- if or .Values.homeAssistant.scenes .Values.homeAssistant.existingScenesConfigMap }}
+            - name: scenes-yaml
+              mountPath: /configYaml/scenes
+            {{- end }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -84,10 +100,25 @@ spec:
           persistentVolumeClaim:
             claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
-      {{- if or .Values.homeAssistant.existingConfigMap .Values.homeAssistant.configuration }}
-        - name: config-yaml
+      {{- if or .Values.homeAssistant.existingConfigurationConfigMap .Values.homeAssistant.configuration }}
+        - name: configuration-yaml
           configMap:
-            name: {{ if .Values.existingConfigMap }}{{ .Values.homeAssistant.existingConfigMap }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
+            name: {{ if .Values.existingConfigurationConfigMap }}{{ .Values.homeAssistant.existingConfigurationConfigMap }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
+      {{- end }}
+      {{- if or .Values.homeAssistant.existingThemesConfigMap .Values.homeAssistant.themes }}
+        - name: themes-yaml
+          configMap:
+            name: {{ if .Values.existingThemesConfigMap }}{{ .Values.homeAssistant.existingThemesConfigMap }}{{- else }}{{ include "home-assistant.name" . }}-themes{{- end }}
+      {{- end }}
+      {{- if or .Values.homeAssistant.existingAutomationsConfigMap .Values.homeAssistant.automations }}
+        - name: automation-yaml
+          configMap:
+            name: {{ if .Values.existingAutomationsConfigMap }}{{ .Values.homeAssistant.existingAutomationsConfigMap }}{{- else }}{{ include "home-assistant.name" . }}-automations{{- end }}
+      {{- end }}
+      {{- if or .Values.homeAssistant.existingScenesConfigMap .Values.homeAssistant.scenes }}
+        - name: scenes-yaml
+          configMap:
+            name: {{ if .Values.existingScenesConfigMap }}{{ .Values.homeAssistant.existingScenesConfigMap }}{{- else }}{{ include "home-assistant.name" . }}-scenes{{- end }}
       {{- end }}
       {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}

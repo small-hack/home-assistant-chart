@@ -122,10 +122,21 @@ homeAssistant:
   #     use_x_forwarded_for: true
   #     trusted_proxies:
   #       - 10.0.0.0/8
-  #
   #   mobile:
   #
   #   config:
   configuration: ""
-  # -- name of existing Config Map
-  existingConfigMap: ""
+  # -- name of existing ConfigMap
+  existingConfigurationConfigMap: ""
+  # -- contents of themes.yaml file to create, ignored if homeAssistant.existingThemesConfigMap set
+  themes: ""
+  # -- name of existing themes ConfigMap
+  existingThemesConfigMap: ""
+  # -- contents of automations.yaml file to create, ignored if homeAssistant.existingAutomationsConfigMap set
+  automations: ""
+  # -- name of existing automations ConfigMap
+  existingAutomationsConfigMap: ""
+  # -- conents of scenes.yaml file to create, ignored if homeAssistant.existingScenesConfigMap set
+  scenes: ""
+  # -- name of existing scenes ConfigMap
+  existingScenesConfigMap: ""

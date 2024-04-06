@@ -1,0 +1,13 @@
+{{- if and (not .Values.homeAssistant.existingScenesConfigMap ) .Values.homeAssistant.scenes }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "home-assistant.fullname" . }}-scenes
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-5"
+    helm.sh/resource-policy: keep
+data:
+  scenes.yaml: |- {{ .Values.homeAssistant.scenes | nindent 4 }}
+{{- end }}

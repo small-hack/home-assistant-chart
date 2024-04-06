@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.3](https://img.shields.io/badge/AppVersion-2024.3-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.4.1](https://img.shields.io/badge/AppVersion-2024.4.1-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -9,12 +9,6 @@ A Helm chart for home assistant on Kubernetes
 | Name | Email | Url |
 | ---- | ------ | --- |
 | jessebot | <jessebot@linux.com> | <https://github.com/jessebot> |
-
-## Requirements
-
-| Repository | Name | Version |
-|------------|------|---------|
-| https://small-hack.github.io/home-assistant | deconz | 0.1.0 |
 
 ## Values
 
@@ -25,12 +19,17 @@ A Helm chart for home assistant on Kubernetes
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| deconz.enabled | bool | `false` | enable deconz for the conbee 1/2 for use with homeAssistant this can be obviated by setting extraVolumes/extraVolumeMounts/resouces if you have already installed the generic device plugin k8s daemonset.  otherwise, checkout the parameters available in here: https://github.com/small-hack/home-assistant-chart/tree/main/charts/deconz |
 | extraVolumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition. example device mount:   - mountPath: /dev/ttyACM0    name: usb |
 | extraVolumes | list | `[]` | Additional volumes on the output Deployment definition. example device as volume:   - hostPath:      path: >-        /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20230509111242-if00      type: CharDevice    name: usb |
 | fullnameOverride | string | `""` |  |
-| homeAssistant.configuration | string | `""` | any data you'd like to see put into your configuration.yaml # example config configuration: |   # this enables proxies such as the ingress nginx controller   http:     use_x_forwarded_for: true     trusted_proxies:       - 10.0.0.0/8    mobile:    config: |
-| homeAssistant.existingConfigMap | string | `""` | name of existing Config Map |
+| homeAssistant.automations | string | `""` | contents of automations.yaml file to create, ignored if homeAssistant.existingAutomationsConfigMap set |
+| homeAssistant.configuration | string | `""` | any data you'd like to see put into your configuration.yaml # example config configuration: |   # this enables proxies such as the ingress nginx controller   http:     use_x_forwarded_for: true     trusted_proxies:       - 10.0.0.0/8   mobile:    config: |
+| homeAssistant.existingAutomationsConfigMap | string | `""` | name of existing automations ConfigMap |
+| homeAssistant.existingConfigurationConfigMap | string | `""` | name of existing ConfigMap |
+| homeAssistant.existingScenesConfigMap | string | `""` | name of existing scenes ConfigMap |
+| homeAssistant.existingThemesConfigMap | string | `""` | name of existing themes ConfigMap |
+| homeAssistant.scenes | string | `""` | conents of scenes.yaml file to create, ignored if homeAssistant.existingScenesConfigMap set |
+| homeAssistant.themes | string | `""` | contents of themes.yaml file to create, ignored if homeAssistant.existingThemesConfigMap set |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/home-assistant/home-assistant"` |  |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
