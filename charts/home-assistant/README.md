@@ -22,14 +22,14 @@ A Helm chart for home assistant on Kubernetes
 | extraVolumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition. example device mount:   - mountPath: /dev/ttyACM0    name: usb |
 | extraVolumes | list | `[]` | Additional volumes on the output Deployment definition. example device as volume:   - hostPath:      path: >-        /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20230509111242-if00      type: CharDevice    name: usb |
 | fullnameOverride | string | `""` |  |
-| homeAssistant.automations | string | `""` | contents of automations.yaml file to create |
+| homeAssistant.automations | string | `""` | contents of automations.yaml file to create, ignored if homeAssistant.existingAutomationsConfigMap set |
 | homeAssistant.configuration | string | `""` | any data you'd like to see put into your configuration.yaml # example config configuration: |   # this enables proxies such as the ingress nginx controller   http:     use_x_forwarded_for: true     trusted_proxies:       - 10.0.0.0/8   mobile:    config: |
-| homeAssistant.existingAutomationConfigMap | string | `""` | name of existing automations ConfigMap |
+| homeAssistant.existingAutomationsConfigMap | string | `""` | name of existing automations ConfigMap |
 | homeAssistant.existingConfigurationConfigMap | string | `""` | name of existing ConfigMap |
 | homeAssistant.existingScenesConfigMap | string | `""` | name of existing scenes ConfigMap |
 | homeAssistant.existingThemesConfigMap | string | `""` | name of existing themes ConfigMap |
-| homeAssistant.scenes | string | `""` | conents of scenes.yaml file to create |
-| homeAssistant.themes | string | `""` | contents of themes.yaml file to create |
+| homeAssistant.scenes | string | `""` | conents of scenes.yaml file to create, ignored if homeAssistant.existingScenesConfigMap set |
+| homeAssistant.themes | string | `""` | contents of themes.yaml file to create, ignored if homeAssistant.existingThemesConfigMap set |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"ghcr.io/home-assistant/home-assistant"` |  |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |

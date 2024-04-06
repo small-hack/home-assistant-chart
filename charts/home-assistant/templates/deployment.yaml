@@ -110,10 +110,10 @@ spec:
           configMap:
             name: {{ if .Values.existingThemesConfigMap }}{{ .Values.homeAssistant.existingThemesConfigMap }}{{- else }}{{ include "home-assistant.name" . }}-themes{{- end }}
       {{- end }}
-      {{- if or .Values.homeAssistant.existingAutomationConfigMap .Values.homeAssistant.automations }}
+      {{- if or .Values.homeAssistant.existingAutomationsConfigMap .Values.homeAssistant.automations }}
         - name: automation-yaml
           configMap:
-            name: {{ if .Values.existingAutomationConfigMap }}{{ .Values.homeAssistant.existingAutomationConfigMap }}{{- else }}{{ include "home-assistant.name" . }}-automations{{- end }}
+            name: {{ if .Values.existingAutomationsConfigMap }}{{ .Values.homeAssistant.existingAutomationsConfigMap }}{{- else }}{{ include "home-assistant.name" . }}-automations{{- end }}
       {{- end }}
       {{- if or .Values.homeAssistant.existingScenesConfigMap .Values.homeAssistant.scenes }}
         - name: scenes-yaml
