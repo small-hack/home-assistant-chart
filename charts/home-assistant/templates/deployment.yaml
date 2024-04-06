@@ -39,26 +39,26 @@ spec:
             - "sh"
             - "-c"
             - |
-              cp /configYaml/configuration.yaml /config && \
-              if test -f /configYaml/themes.yaml; then cp /configYaml/themes.yaml /config; else touch /config/themes.yaml; fi && \
-              if test -f /configYaml/automations.yaml; then cp /configYaml/automations.yaml /config; else touch /config/automations.yaml; fi && \
-              if test -f /configYaml/scenes.yaml; then cp /configYaml/scenes.yaml /config; else touch /config/scenes.yaml; fi
+              cp /configYaml/config/configuration.yaml /config && \
+              if test -f /configYaml/themes/themes.yaml; then cp /configYaml/themes/themes.yaml /config; else touch /config/themes.yaml; fi && \
+              if test -f /configYaml/automations/automations.yaml; then cp /configYaml/automations/automations.yaml /config; else touch /config/automations.yaml; fi && \
+              if test -f /configYaml/scenes/scenes.yaml; then cp /configYaml/scenes/scenes.yaml /config; else touch /config/scenes.yaml; fi
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: config-yaml
-              mountPath: /configYaml
+            - name: configuration-yaml
+              mountPath: /configYaml/config
             {{- if or .Values.homeAssistant.themes .Values.homeAssistant.existingThemesConfigMap }}
             - name: themes-yaml
-              mountPath: /configYaml
+              mountPath: /configYaml/themes
             {{- end }}
             {{- if or .Values.homeAssistant.automations .Values.homeAssistant.existingAutomationsConfigMap }}
             - name: automations-yaml
-              mountPath: /configYaml
+              mountPath: /configYaml/automations
             {{- end }}
             {{- if or .Values.homeAssistant.scenes .Values.homeAssistant.existingScenesConfigMap }}
             - name: scenes-yaml
-              mountPath: /configYaml
+              mountPath: /configYaml/scenes
             {{- end }}
       {{- end }}
       containers:
@@ -101,7 +101,7 @@ spec:
             claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
       {{- if or .Values.homeAssistant.existingConfigurationConfigMap .Values.homeAssistant.configuration }}
-        - name: config-yaml
+        - name: configuration-yaml
           configMap:
             name: {{ if .Values.existingConfigurationConfigMap }}{{ .Values.homeAssistant.existingConfigurationConfigMap }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
       {{- end }}
