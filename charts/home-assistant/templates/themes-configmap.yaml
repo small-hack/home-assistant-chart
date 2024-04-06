@@ -1,0 +1,13 @@
+{{- if and (not .Values.homeAssistant.existingThemesConfigMap ) .Values.homeAssistant.themes }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "home-assistant.fullname" . }}-themes
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-5"
+    helm.sh/resource-policy: keep
+data:
+  themes.yaml: |- {{ .Values.homeAssistant.themes | nindent 4 }}
+{{- end }}
