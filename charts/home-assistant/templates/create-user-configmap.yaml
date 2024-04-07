@@ -79,7 +79,7 @@ data:
             # update the headers to include the authorization token
             token = response.json()["auth_code"]
             print(token)
-            self.headers['Authorization'] = f"token {token}"
+            self.headers['Authorization'] = f"auth_code {token}"
             self.headers.pop('Content-Type')
 
 
