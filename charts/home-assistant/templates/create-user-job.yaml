@@ -19,7 +19,7 @@ spec:
             - "sh"
             - "-c"
             - |
-              pip install requests && python /scripts/create_user.py
+              pip install --break-system-packages requests && python /scripts/create_user.py
           volumeMounts:
             - mountPath: /scripts
               name: scripts
