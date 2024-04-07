@@ -80,7 +80,7 @@ data:
             token = response.json()["auth_code"]
             print(token)
             self.headers['Authorization'] = f"token {token}"
-            self.header.pop('Content-Type')
+            self.headers.pop('Content-Type')
 
 
     if __name__ == '__main__':
