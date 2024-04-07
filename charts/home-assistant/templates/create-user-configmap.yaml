@@ -84,8 +84,37 @@ data:
 
         def create_token(self) -> dict:
             token_url = f"{self.base_url}/auth/token"
+            print("🐶".center(50,"🐕"))
+            print(f"We're going to post to {token_url} for a new auth code")
+
+            payload = json.dumps({
+              "client_id": self.base_url,
+              "username": env.get('ADMIN_USERNAME', 'admin'),
+              "password": env.get('ADMIN_PASSWORD', 'test'),
+              "grant_type": "authorization_code"
+
+            })
+
+            response = requests.request("POST", token_url, headers=self.headers, data=payload)
+            print(response.text)
+
+            print("🐶".center(50,"🐕"))
+
+            # update the headers to include the authorization token
+            token = response.json()["auth_code"]
+            self.headers['Authorization'] = f"auth_code {token}"
+
             print(f"We're going to post to {token_url} for a new token")
-            response = requests.request("POST", token_url, headers=self.headers)
+
+            payload = json.dumps({
+              "client_id": self.base_url,
+              "username": env.get('ADMIN_USERNAME', 'admin'),
+              "password": env.get('ADMIN_PASSWORD', 'test'),
+              "grant_type": "refresh_token"
+
+            })
+
+            response = requests.request("POST", token_url, headers=self.headers, data=payload)
             print(response.text)
 
 
