@@ -9,13 +9,15 @@ metadata:
     "helm.sh/hook-weight": "-5"
 data:
   create_user.py: |
-    import requests
     import json
     from os import environ as env
+    import requests
 
     service_name = env.get('SERVICE', 'home-assistant:8124')
 
     url = f"http://{service_name}/api/onboarding/users"
+
+    print(f"We're going to post to {url}")
 
     payload = json.dumps({
       "client_id": f"http://{service_name}/",
