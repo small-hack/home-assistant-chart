@@ -83,8 +83,8 @@ data:
             # self.headers.pop('Content-Type')
 
         def create_token(self) -> dict:
-            token_url = f"{self.base_url}/api/token"
-            print(f"We're going to post to {token_url} token")
+            token_url = f"{self.base_url}/auth/token"
+            print(f"We're going to post to {token_url} for a new token")
             response = requests.request("POST", token_url, headers=self.headers)
             print(response.text)
 
