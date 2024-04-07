@@ -1,0 +1,38 @@
+{{- if .Values.homeAssistant.owner.create }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: home-assistant-create-user
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-3"
+spec:
+  template:
+    metadata:
+      name: create-user
+    spec:
+      containers:
+        - name: create-user
+          image: python
+          command: ['python', '/scripts/create-user.py']
+          volumeMounts:
+            - mountPath: /scripts
+              name: scripts
+          envFrom:
+            - secretRef:
+                {{- if .Values.homeAssistant.owner.existingSecret }}
+                name: {{ .Values.homeAssistant.owner.existingSecret }}
+                {{ else }}
+                name: {{ include "home-assistant.fullname" . }}-owner
+                {{- end }}
+          env:
+            - name: SERVICE
+              value: {{ include "home-assistant.fullname" . }}:{{ .Values.service.targetPort }}
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ include "home-assistant.fullname" . }}-create-user-script
+            defaultMode: 0555
+      restartPolicy: OnFailure
+{{- end }}

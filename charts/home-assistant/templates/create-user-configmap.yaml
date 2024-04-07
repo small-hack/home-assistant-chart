@@ -1,0 +1,35 @@
+{{- if .Values.homeAssistant.owner.create }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "home-assistant.fullname" . }}-create-user-script
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
+data:
+  create_user.py: |
+    import requests
+    import json
+    from os import environ as env
+
+    service_name = env.get('SERVICE', 'home-assistant:8124')
+
+    url = f"http://{service_name}/api/onboarding/users"
+
+    payload = json.dumps({
+      "client_id": f"http://{service_name}/",
+      "name": env.get('ADMIN_NAME', 'admin'),
+      "username": env.get('ADMIN_USERNAME', 'admin'),
+      "password": env.get('ADMIN_PASSWORD', 'test'),
+      "language": env.get('ADMIN_LANGUAGE', 'en')
+    })
+
+    headers = {
+      'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text)
+{{- end }}

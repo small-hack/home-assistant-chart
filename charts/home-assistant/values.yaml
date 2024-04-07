@@ -114,6 +114,20 @@ tolerations: []
 affinity: {}
 
 homeAssistant:
+  owner:
+    # -- whether to create an initial owner user to disable registration
+    create: false
+    # -- name of the owner user, ignored if owner.existingSecret is set
+    name: "admin"
+    # -- login username of the owner user, ignored if owner.existingSecret is set
+    username: "admin"
+    # -- login password of the owner user, ignored if owner.existingSecret is set
+    password: ""
+    # -- language of the owner user, ignored if owner.existingSecret is set
+    language: "en"
+    # -- existingSecret for the owner user's credentials secret keys must be:
+    # ADMIN_NAME, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_LANGUAGE
+    existingSecret: ""
   # -- any data you'd like to see put into your configuration.yaml
   ## example config
   # configuration: |
