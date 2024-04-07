@@ -15,7 +15,7 @@ spec:
       containers:
         - name: create-user
           image: python
-          command: ['python', '/scripts/create-user.py']
+          command: ['python', '/scripts/create_user.py']
           volumeMounts:
             - mountPath: /scripts
               name: scripts
