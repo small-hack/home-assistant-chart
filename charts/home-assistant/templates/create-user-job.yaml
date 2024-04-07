@@ -36,7 +36,7 @@ spec:
                 {{- end }}
           env:
             - name: SERVICE
-              value: {{ include "home-assistant.fullname" . }}:{{ .Values.service.targetPort }}
+              value: {{ include "home-assistant.fullname" . }}
       volumes:
         - name: scripts
           configMap:
