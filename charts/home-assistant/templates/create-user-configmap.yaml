@@ -26,11 +26,30 @@ data:
               'Content-Type': 'application/json',
             }
             self.base_url = f"http://{env.get('SERVICE', 'home-assistant:8124')}"
-            self.integration_url = f"{self.base_url}/api/onboarding/integration"
 
-        def run_onboarding_core_config(self) -> dict:
+        def run_analytics_config(self) -> dict:
             """
-            creates a user via the home assistant api
+            runs the analytics config step of onboarding via the home assistant api
+            """
+            analytics_url = f"{self.base_url}/api/onboarding/analytics"
+            print(f"We're going to post to {analytics_url} for core config finishing")
+
+            response = requests.request("POST", analytics_url, headers=self.headers)
+            print(response.text)
+
+        def run_integration_config(self) -> dict:
+            """
+            runs the integration config step of onboarding via the home assistant api
+            """
+            integration_url = f"{self.base_url}/api/onboarding/integration"
+            print(f"We're going to post to {integration_url} for core config finishing")
+
+            response = requests.request("POST", integration_url, headers=self.headers)
+            print(response.text)
+
+        def run_core_config(self) -> dict:
+            """
+            runs the core config step of onboarding via the home assistant api
             """
             core_config_url = f"{self.base_url}/api/onboarding/core_config"
             print(f"We're going to post to {core_config_url} for core config finishing")
@@ -60,17 +79,23 @@ data:
             print("=".center(40,"="))
             print("response.text")
             print(response.text)
-            print("response.json")
-            print(response.json)
+            print("=".center(40,"="))
+            print("response.json()")
+            print(response.json())
+            print("=".center(40,"="))
             print("token")
-            token = response.json["auth_code"]
+            token = response.json()["auth_code"]
             print(token)
             print("=".center(40,"="))
+
+            # update the headers to include the authorization token
             self.headers['Authorization'] = f"token {token}"
 
 
     if __name__ == '__main__':
         onboarding_obj = RunHomeAssistantOnboarding()
         onboarding_obj.create_user()
-        onboarding_obj.run_onboarding_core_config()
+        onboarding_obj.run_core_config()
+        onboarding_obj.run_integration_config()
+        onboarding_obj.run_analytics_config()
 {{- end }}
