@@ -32,7 +32,7 @@ data:
             runs the analytics config step of onboarding via the home assistant api
             """
             analytics_url = f"{self.base_url}/api/onboarding/analytics"
-            print(f"We're going to post to {analytics_url} for core config finishing")
+            print(f"We're going to post to {analytics_url} for analytics setup")
 
             response = requests.request("POST", analytics_url, headers=self.headers)
             print(response.text)
@@ -42,7 +42,7 @@ data:
             runs the integration config step of onboarding via the home assistant api
             """
             integration_url = f"{self.base_url}/api/onboarding/integration"
-            print(f"We're going to post to {integration_url} for core config finishing")
+            print(f"We're going to post to {integration_url} for integration config")
 
             response = requests.request("POST", integration_url, headers=self.headers)
             print(response.text)
@@ -52,7 +52,7 @@ data:
             runs the core config step of onboarding via the home assistant api
             """
             core_config_url = f"{self.base_url}/api/onboarding/core_config"
-            print(f"We're going to post to {core_config_url} for core config finishing")
+            print(f"We're going to post to {core_config_url} for finishing the core config")
 
             response = requests.request("POST", core_config_url, headers=self.headers)
             print(response.text)
@@ -75,17 +75,24 @@ data:
             # this is the api request actually creates the new user and returns something like:
             # {"auth_code":"23456y7uiobgdfghjm54873hfjkdfghj"}
             response = requests.request("POST", user_url, headers=self.headers, data=payload)
+            print(response.text)
 
             # update the headers to include the authorization token
             token = response.json()["auth_code"]
-            print(token)
             self.headers['Authorization'] = f"auth_code {token}"
-            self.headers.pop('Content-Type')
+            # self.headers.pop('Content-Type')
+
+        def create_token(self) -> dict:
+            token_url = f"{self.base_url}/api/token"
+            print(f"We're going to post to {token_url} token")
+            response = requests.request("POST", token_url, headers=self.headers)
+            print(response.text)
 
 
     if __name__ == '__main__':
         onboarding_obj = RunHomeAssistantOnboarding()
         onboarding_obj.create_user()
+        onboarding_obj.create_token()
         onboarding_obj.run_core_config()
         onboarding_obj.run_integration_config()
         onboarding_obj.run_analytics_config()
