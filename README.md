@@ -4,11 +4,12 @@ Who doesn't need more home assistant helm charts? This is a generic home assista
 
 #### Features
 
-- Put a default configuration.yaml, themes.yaml, automations.yaml, and scenes.yaml in place of your choosing with either:
+- values are documented [here](https://github.com/small-hack/home-assistant-chart/tree/main/charts/home-assistant#values) using [helm-docs](https://github.com/norwoodj/helm-docs)
+- Put a default `configuration.yaml`, `themes.yaml`, `automations.yaml`, and `scenes.yaml` in a place of your choosing with either:
   - your own ConfigMap
   - specifying an in-line yaml string for us to render as a ConfigMap for you
-- Create an initial owner user (disables the registration page)
-  - supports existing k8s Secret for owner credentials
+- 🆕 Create an initial "owner" admin user (disables the registration page)
+  - supports existing k8s Secret for credentials
 - Kept up to date by RenovateBot
 
 ## TLDR
