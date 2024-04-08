@@ -1,13 +1,16 @@
 replicaCount: 1
 
 image:
+  # -- image repository that defaults to the official Home Assistant GitHub ghcr.io repo
   repository: ghcr.io/home-assistant/home-assistant
+  # -- image pullPolicy. If using tag: latest, set image.pullPolicy: Always
   pullPolicy: IfNotPresent
   # -- Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
+# -- fullname override to use for all chart resources, instead of helm release name
 fullnameOverride: ""
 
 serviceAccount:
@@ -22,6 +25,7 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
+# -- labels to apply to all pods
 podLabels: {}
 
 podSecurityContext: {}
@@ -37,6 +41,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
+  # -- default port to expose
   port: 80
   # -- default port for the home home-assistant container
   targetPort: 8123
@@ -57,7 +62,7 @@ ingress:
   #      - chart-example.local
 
 # -- resource requests and limits. example: for requesting a USB device from the
-#    generic device plugin
+#    [generic device plugin](https://github.com/squat/generic-device-plugin)
 #
 #  limits:
 #    squat.ai/serial: 1
