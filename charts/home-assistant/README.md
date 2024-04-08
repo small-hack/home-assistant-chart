@@ -29,7 +29,8 @@ A Helm chart for home assistant on Kubernetes
 | homeAssistant.existingScenesConfigMap | string | `""` | name of existing scenes ConfigMap |
 | homeAssistant.existingThemesConfigMap | string | `""` | name of existing themes ConfigMap |
 | homeAssistant.owner.create | bool | `false` | whether to create an initial owner user to disable registration |
-| homeAssistant.owner.existingSecret | string | `""` | existingSecret for the owner user's credentials secret keys must be: ADMIN_NAME, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_LANGUAGE |
+| homeAssistant.owner.existingSecret | string | `""` | existingSecret for the owner user's credentials secret keys must be: ADMIN_NAME, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_LANGUAGE, EXTERNAL_URL |
+| homeAssistant.owner.externalURL | string | `""` | if your home assistant is using ingress, this is the external url you connect to, example: https://home-assistant.cooldogsonline.net/ (ignored if owner.existingSecret is set) |
 | homeAssistant.owner.language | string | `"en"` | language of the owner user, ignored if owner.existingSecret is set |
 | homeAssistant.owner.name | string | `"admin"` | name of the owner user, ignored if owner.existingSecret is set |
 | homeAssistant.owner.password | string | `""` | login password of the owner user, ignored if owner.existingSecret is set |

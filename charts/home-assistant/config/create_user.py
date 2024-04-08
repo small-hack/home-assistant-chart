@@ -15,6 +15,7 @@ class RunHomeAssistantOnboarding():
           'Content-Type': 'application/json',
         }
         self.base_url = f"http://{env.get('SERVICE', 'home-assistant:8124')}"
+        self.external_url = env.get('EXTERNAL_URL', '')
 
     def run_analytics_config(self) -> dict:
         """
@@ -53,8 +54,12 @@ class RunHomeAssistantOnboarding():
         user_url = f"{self.base_url}/api/onboarding/users"
         print(f"We're going to post to {user_url} for user creation")
 
+        client_id = self.external_url
+        if not client_id:
+            client_id = self.base_url + "/"
+
         payload = json.dumps({
-          "client_id": self.base_url,
+          "client_id": client_id,
           "name": env.get('ADMIN_NAME', 'admin'),
           "username": env.get('ADMIN_USERNAME', 'admin'),
           "password": env.get('ADMIN_PASSWORD', 'test'),
@@ -103,6 +108,7 @@ class RunHomeAssistantOnboarding():
 
         response = requests.request("POST", token_url, headers=self.headers, data=payload)
         print(response.text)
+        print("🐶".center(50,"🐕"))
 
 
 if __name__ == '__main__':

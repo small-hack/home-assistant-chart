@@ -125,8 +125,12 @@ homeAssistant:
     password: ""
     # -- language of the owner user, ignored if owner.existingSecret is set
     language: "en"
+    # -- if your home assistant is using ingress, this is the external url you
+    # connect to, example: https://home-assistant.cooldogsonline.net/
+    # (ignored if owner.existingSecret is set)
+    externalURL: ""
     # -- existingSecret for the owner user's credentials secret keys must be:
-    # ADMIN_NAME, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_LANGUAGE
+    # ADMIN_NAME, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_LANGUAGE, EXTERNAL_URL
     existingSecret: ""
   # -- any data you'd like to see put into your configuration.yaml
   ## example config
