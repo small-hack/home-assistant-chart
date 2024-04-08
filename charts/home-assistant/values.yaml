@@ -117,6 +117,8 @@ homeAssistant:
   owner:
     # -- whether to create an initial owner user to disable registration
     create: false
+    # -- enable debug mode for the user creation job. WARNING: This reveals secret data
+    debug: false
     # -- name of the owner user, ignored if owner.existingSecret is set
     name: "admin"
     # -- login username of the owner user, ignored if owner.existingSecret is set
