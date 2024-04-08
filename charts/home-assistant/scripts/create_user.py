@@ -1,3 +1,4 @@
+# Author: https://github.com/jessebot
 import json
 from os import environ as env
 import requests
@@ -6,6 +7,21 @@ import requests
 class RunHomeAssistantOnboarding():
     """
     Runs through home assistant onboarding to create a new user and disable registration
+    Required environment variables:
+
+    INTERNAL_URL   - if using k8s: name of k8s service, or if local you can use IP
+                     like this http://your-ip-here:8124
+    EXTERNAL_URL   - the url you use to access home assistant. if local, may be
+                     the same as INTERNAL_URL if using k8s with ingress, this is
+                     your ingress host, such as https://ha.yourhostname.tld/
+    ADMIN_PASSWORD - string of password for initial owner user, not required, recommended
+                     default: "b33pB00p.d4Doop"
+
+    # optional environment variables
+    DEBUG        - print all api responses, WARNING includes sensitive data. set to "true"
+    ADMIN_NAME     - name of the first owner user, default: 'admin'
+    ADMIN_USERNAME - login username of first owner user, default: 'admin'
+    ADMIN_LANGUAGE - 2 character string of initial owner user's language, default "en"
 
     home assistant user onboarding urls found here:
     https://github.com/home-assistant/core/tree/dev/homeassistant/components/onboarding/views.py
@@ -14,7 +30,7 @@ class RunHomeAssistantOnboarding():
         self.headers = {
           'Content-Type': 'application/json',
         }
-        self.base_url = f"http://{env.get('SERVICE', 'home-assistant:8124')}"
+        self.base_url = f"http://{env.get('INTERNAL_URL', 'localhost:8124')}"
         self.external_url = env.get('EXTERNAL_URL', '')
         self.debug = env.get('DEBUG', False)
 
@@ -33,7 +49,7 @@ class RunHomeAssistantOnboarding():
         """
         runs the integration config step of onboarding via the home assistant api
 
-        may not be working 🤷
+        may not be working 🤷, however this doesn't break the onboarding.
         """
         integration_url = f"{self.base_url}/api/onboarding/integration"
         print(f"We're going to post to {integration_url} for integration config")
@@ -68,7 +84,7 @@ class RunHomeAssistantOnboarding():
           "client_id": client_id,
           "name": env.get('ADMIN_NAME', 'admin'),
           "username": env.get('ADMIN_USERNAME', 'admin'),
-          "password": env.get('ADMIN_PASSWORD', 'test'),
+          "password": env.get('ADMIN_PASSWORD', "b33pB00p.d4Doop"),
           "language": env.get('ADMIN_LANGUAGE', 'en')
         })
 
