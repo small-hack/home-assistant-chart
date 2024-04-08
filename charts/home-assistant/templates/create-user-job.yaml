@@ -34,7 +34,7 @@ spec:
                 name: {{ include "home-assistant.fullname" . }}-owner
                 {{- end }}
           env:
-            - name: SERVICE
+            - name: INTERNAL_URL
               value: {{ include "home-assistant.fullname" . }}
             {{- if .Values.homeAssistant.owner.debug }}
             - name: DEBUG
