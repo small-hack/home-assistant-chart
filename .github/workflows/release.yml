@@ -1,4 +1,4 @@
-name: Release Chart
+name: Home Assistant Release Chart
 concurrency: chart_releaser
 
 on:
@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'charts/home-assistant/'
+      - 'charts/home-assistant/**'
 
 jobs:
   release:
@@ -29,7 +29,7 @@ jobs:
         with:
           version: v3.14.3
 
-      - name: Run chart-releaser
+      - name: Run chart-releaser for home-assistant
         uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_GENERATE_RELEASE_NOTES: true

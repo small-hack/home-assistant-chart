@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.4.1](https://img.shields.io/badge/AppVersion-2024.4.1-informational?style=flat-square)
+![Version: 0.7.2](https://img.shields.io/badge/Version-0.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.4.1](https://img.shields.io/badge/AppVersion-2024.4.1-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -21,7 +21,7 @@ A Helm chart for home assistant on Kubernetes
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | extraVolumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition. example device mount:   - mountPath: /dev/ttyACM0    name: usb |
 | extraVolumes | list | `[]` | Additional volumes on the output Deployment definition. example device as volume:   - hostPath:      path: >-        /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20230509111242-if00      type: CharDevice    name: usb |
-| fullnameOverride | string | `""` |  |
+| fullnameOverride | string | `""` | fullname override to use for all chart resources, instead of helm release name |
 | homeAssistant.automations | string | `""` | contents of automations.yaml file to create, ignored if homeAssistant.existingAutomationsConfigMap set |
 | homeAssistant.configuration | string | `""` | any data you'd like to see put into your configuration.yaml # example config configuration: |   # this enables proxies such as the ingress nginx controller   http:     use_x_forwarded_for: true     trusted_proxies:       - 10.0.0.0/8   mobile:    config: |
 | homeAssistant.existingAutomationsConfigMap | string | `""` | name of existing automations ConfigMap |
@@ -38,8 +38,8 @@ A Helm chart for home assistant on Kubernetes
 | homeAssistant.owner.username | string | `"admin"` | login username of the owner user, ignored if owner.existingSecret is set |
 | homeAssistant.scenes | string | `""` | conents of scenes.yaml file to create, ignored if homeAssistant.existingScenesConfigMap set |
 | homeAssistant.themes | string | `""` | contents of themes.yaml file to create, ignored if homeAssistant.existingThemesConfigMap set |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/home-assistant/home-assistant"` |  |
+| image.pullPolicy | string | `"IfNotPresent"` | image pullPolicy. If using tag: latest, set image.pullPolicy: Always |
+| image.repository | string | `"ghcr.io/home-assistant/home-assistant"` | image repository that defaults to the official Home Assistant GitHub ghcr.io repo |
 | image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
@@ -61,15 +61,15 @@ A Helm chart for home assistant on Kubernetes
 | persistence.size | string | `"8Gi"` |  |
 | persistence.storageClass | string | `"nil"` |  |
 | podAnnotations | object | `{}` |  |
-| podLabels | object | `{}` |  |
+| podLabels | object | `{}` | labels to apply to all pods |
 | podSecurityContext | object | `{}` |  |
 | readinessProbe.enabled | bool | `true` |  |
 | readinessProbe.httpGet.path | string | `"/"` |  |
 | readinessProbe.httpGet.port | string | `"http"` |  |
 | replicaCount | int | `1` |  |
-| resources | object | `{}` | resource requests and limits. example: for requesting a USB device from the    generic device plugin   limits:    squat.ai/serial: 1 |
+| resources | object | `{}` | resource requests and limits. example: for requesting a USB device from the    [generic device plugin](https://github.com/squat/generic-device-plugin)   limits:    squat.ai/serial: 1 |
 | securityContext | object | `{}` |  |
-| service.port | int | `80` |  |
+| service.port | int | `80` | default port to expose |
 | service.targetPort | int | `8123` | default port for the home home-assistant container |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
