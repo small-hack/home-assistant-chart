@@ -4,9 +4,11 @@ Who doesn't need more home assistant helm charts? This is a generic home assista
 
 #### Features
 
-- Put a default configuration.yaml in place of your choosing with either:
+- Put a default configuration.yaml, themes.yaml, automations.yaml, and scenes.yaml in place of your choosing with either:
   - your own ConfigMap
   - specifying an in-line yaml string for us to render as a ConfigMap for you
+- Create an initial owner user (disables the registration page)
+  - supports existing k8s Secret for owner credentials
 - Kept up to date by RenovateBot
 
 ## TLDR
@@ -24,6 +26,73 @@ helm install --namespace home-assistant --create-namespace home-assistant/home-a
 
 ## Tips
 
+### Creating an initial owner user
+
+Creating a user using plain text values. This would be your values:
+
+```yaml
+homeAssistant:
+  owner:
+    # -- whether to create an initial owner user to disable registration
+    create: true
+    # -- enable debug mode for the user creation job. WARNING: This reveals secret data
+    debug: false
+    # -- name of the owner user, ignored if owner.existingSecret is set
+    name: "admin"
+    # -- login username of the owner user, ignored if owner.existingSecret is set
+    username: "admin"
+    # -- login password of the owner user, ignored if owner.existingSecret is set
+    password: ""
+    # -- language of the owner user, ignored if owner.existingSecret is set
+    language: "en"
+    # -- if your home assistant is using ingress, this is the external url you connect to
+    # NOTE: if using ingress, this should be the same hostname you specified for that
+    # if using an internal IP for connecting, please use your IP for the url, like https://192.168.42.42/
+    externalURL: "https://home-assistant.cooldogsonline.net/"
+```
+
+#### User creation using an existing secret
+
+This would be your values:
+
+```yaml
+homeAssistant:
+  owner:
+    create: true
+    existingSecret: "home-assistant-owner"
+```
+
+This would be an example secret containing the important environment variables:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: home-assistant-owner
+  # this should be the namespace you deploy this helm chart into
+  namespace: home-assistant
+type: Opaque
+data:
+  ADMIN_LANGUAGE: ZW4=
+  ADMIN_NAME: YWRtaW4=
+  ADMIN_PASSWORD: YWRtaW4=
+  ADMIN_USERNAME: YWRtaW4=
+  EXTERNAL_URL: aHR0cHM6Ly9oYS5leGFtcGxlLmNvbS8=
+```
+
+#### Troubleshooting User creation
+
+Sometimes, the user creation job is buggy, as it is a hack anyway, so we take a DEBUG variable to output everything we get back from every command. If something has gone wrong, try deleting the helm release and then re-install with the following values:
+
+```yaml
+homeAssistant:
+  owner:
+    create: true
+    # -- enable debug mode for the user creation job. WARNING: This reveals secret data
+    debug: true
+```
+
+⚠️ WARNING: Enabling the debug variable for the user creation job will print sensitive data including authorization codes and bearer tokens!
 
 ### Unit system, Temp Unit, and Time Zone
 
@@ -35,6 +104,8 @@ homeAssistant:
       temperature_unit: C
       unit_system: metric
 ```
+
+For more basic config defaults, see: [home-assistant.io/docs/configuration/basic](https://www.home-assistant.io/docs/configuration/basic/)
 
 ### Making Ingress Nginx work for public domains
 

@@ -1,0 +1,13 @@
+{{- if .Values.homeAssistant.owner.create }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "home-assistant.fullname" . }}-create-user-script
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
+data:
+  create_user.py: |-
+{{ .Files.Get "config/create_user.py" | indent 4 }}
+{{- end }}

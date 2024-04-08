@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.4.1](https://img.shields.io/badge/AppVersion-2024.4.1-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.4.1](https://img.shields.io/badge/AppVersion-2024.4.1-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -28,6 +28,14 @@ A Helm chart for home assistant on Kubernetes
 | homeAssistant.existingConfigurationConfigMap | string | `""` | name of existing ConfigMap |
 | homeAssistant.existingScenesConfigMap | string | `""` | name of existing scenes ConfigMap |
 | homeAssistant.existingThemesConfigMap | string | `""` | name of existing themes ConfigMap |
+| homeAssistant.owner.create | bool | `false` | whether to create an initial owner user to disable registration |
+| homeAssistant.owner.debug | bool | `false` | enable debug mode for the user creation job. WARNING: This reveals secret data |
+| homeAssistant.owner.existingSecret | string | `""` | existingSecret for the owner user's credentials secret keys must be: ADMIN_NAME, ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_LANGUAGE, EXTERNAL_URL |
+| homeAssistant.owner.externalURL | string | `""` | if your home assistant is using ingress, this is the external url you connect to, example: https://home-assistant.cooldogsonline.net/ (ignored if owner.existingSecret is set) |
+| homeAssistant.owner.language | string | `"en"` | language of the owner user, ignored if owner.existingSecret is set |
+| homeAssistant.owner.name | string | `"admin"` | name of the owner user, ignored if owner.existingSecret is set |
+| homeAssistant.owner.password | string | `""` | login password of the owner user, ignored if owner.existingSecret is set |
+| homeAssistant.owner.username | string | `"admin"` | login username of the owner user, ignored if owner.existingSecret is set |
 | homeAssistant.scenes | string | `""` | conents of scenes.yaml file to create, ignored if homeAssistant.existingScenesConfigMap set |
 | homeAssistant.themes | string | `""` | contents of themes.yaml file to create, ignored if homeAssistant.existingThemesConfigMap set |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
