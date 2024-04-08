@@ -30,8 +30,9 @@ class RunHomeAssistantOnboarding():
         self.headers = {
           'Content-Type': 'application/json',
         }
-        self.base_url = f"http://{env.get('INTERNAL_URL', 'localhost:8124')}"
-        self.external_url = env.get('EXTERNAL_URL', '')
+        self.base_url = f"http://{env.get('INTERNAL_URL',
+                                          'http://home-assistant:8124')}"
+        self.external_url = env.get('EXTERNAL_URL', self.base_url)
         self.debug = env.get('DEBUG', False)
 
     def run_analytics_config(self) -> dict:
