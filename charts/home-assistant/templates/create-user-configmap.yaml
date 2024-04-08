@@ -9,5 +9,5 @@ metadata:
     "helm.sh/hook-weight": "-5"
 data:
   create_user.py: |-
-{{ .Files.Get "config/create_user.py" | indent 4 }}
+{{ .Files.Get "scripts/create_user.py" | indent 4 }}
 {{- end }}
