@@ -10,6 +10,7 @@ Who doesn't need more home assistant helm charts? This is a generic home assista
   - specifying an in-line yaml string for us to render as a ConfigMap for you
 - 🆕 Create an initial "owner" admin user (disables the registration page)
   - supports existing k8s Secret for credentials
+- post install job to setup [hacs](https://hacs.xyz/)
 - Kept up to date by RenovateBot
 
 ## TLDR
@@ -94,6 +95,23 @@ homeAssistant:
 ```
 
 ⚠️ WARNING: Enabling the debug variable for the user creation job will print sensitive data including authorization codes and bearer tokens!
+
+### Setup hacs
+
+We provide a post install hook job to setup [hacs](https://hacs.xyz/) for you. You can enable it like this:
+
+```yaml
+# persistence MUST be enabled to do this
+persistence:
+  # set to your preferred storageClass, this examples sets
+  # storageClass to local-path which is default on k3s
+  storageClass: "local-path"
+  enabled: true
+
+homeAssistant:
+  setupHacsJobs:
+    enabled: true
+```
 
 ### Unit system, Temp Unit, and Time Zone
 
