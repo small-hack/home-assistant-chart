@@ -1,0 +1,37 @@
+{{- if .Values.homeAssistant.setupHacsJobs.enabled }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: home-assistant-setup-hacs
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-1"
+spec:
+  template:
+    metadata:
+      name: setup-hacs
+    spec:
+      containers:
+        - name: setup-hacs
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - "sh"
+            - "-c"
+            - |
+              cd /config && \
+              wget -O - https://get.hacs.xyz | bash -
+          volumeMounts:
+          {{- if .Values.persistence.enabled }}
+            - name: config
+              mountPath: /config
+          {{- end }}
+      {{- if .Values.persistence.enabled }}
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
+      {{- end }}
+      restartPolicy: OnFailure
+{{- end }}
