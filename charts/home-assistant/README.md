@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 0.7.4](https://img.shields.io/badge/Version-0.7.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.4.1](https://img.shields.io/badge/AppVersion-2024.4.1-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2024.4.1](https://img.shields.io/badge/AppVersion-2024.4.1-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -37,6 +37,8 @@ A Helm chart for home assistant on Kubernetes
 | homeAssistant.owner.password | string | `""` | login password of the owner user, ignored if owner.existingSecret is set |
 | homeAssistant.owner.username | string | `"admin"` | login username of the owner user, ignored if owner.existingSecret is set |
 | homeAssistant.scenes | string | `""` | conents of scenes.yaml file to create, ignored if homeAssistant.existingScenesConfigMap set |
+| homeAssistant.setupHacsJobs | object | `{"enabled":true}` | hacs is the [home assistant community store](https://hacs.xyz/) |
+| homeAssistant.setupHacsJobs.enabled | bool | `true` | enable the hacs setup job, requires persistence to be on |
 | homeAssistant.themes | string | `""` | contents of themes.yaml file to create, ignored if homeAssistant.existingThemesConfigMap set |
 | image.pullPolicy | string | `"IfNotPresent"` | image pullPolicy. If using tag: latest, set image.pullPolicy: Always |
 | image.repository | string | `"ghcr.io/home-assistant/home-assistant"` | image repository that defaults to the official Home Assistant GitHub ghcr.io repo |
