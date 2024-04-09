@@ -10,7 +10,7 @@ Who doesn't need more home assistant helm charts? This is a home assistant chart
   - specifying an in-line yaml string for us to render as a ConfigMap for you
 - 🆕 Create an initial "owner" admin user (disables the registration page)
   - supports existing k8s Secret for credentials
-- post install job to setup [hacs](https://hacs.xyz/)
+- 🆕 post install job to setup [hacs](https://hacs.xyz/)
 - Kept up to date by RenovateBot
 
 ## TLDR
