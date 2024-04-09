@@ -26,6 +26,20 @@ helm show values home-assistant/home-assistant > values.yaml
 helm install --namespace home-assistant --create-namespace home-assistant/home-assistant --values values.yaml
 ```
 
+* [Tips](#tips)
+  * [Creating an initial owner user](#creating-an-initial-owner-user)
+    * [User creation using an existing secret](#user-creation-using-an-existing-secret)
+    * [Troubleshooting User creation](#troubleshooting-user-creation)
+  * [Setup hacs](#setup-hacs)
+  * [Unit system, Temp Unit, and Time Zone](#unit-system-temp-unit-and-time-zone)
+  * [Making Ingress Nginx work for public domains](#making-ingress-nginx-work-for-public-domains)
+  * [Using an existing ConfigMap for configuration.yaml](#using-an-existing-configmap-for-configurationyaml)
+  * [USB Devices](#usb-devices)
+    * [Values.yaml](#valuesyaml)
+  * [Bluetooth devices](#bluetooth-devices)
+  * [Mobile config](#mobile-config)
+* [Status](#status)
+
 ## Tips
 
 ### Creating an initial owner user
@@ -52,6 +66,8 @@ homeAssistant:
     # if using an internal IP for connecting, please use your IP for the url, like https://192.168.42.42/
     externalURL: "https://home-assistant.cooldogsonline.net/"
 ```
+
+NOTE: for user creation to work successfully, you need to have a configuration.yaml file in place with all the basic info filled out. For more basic config defaults, see: [home-assistant.io/docs/configuration/basic](https://www.home-assistant.io/docs/configuration/basic/)
 
 #### User creation using an existing secret
 
