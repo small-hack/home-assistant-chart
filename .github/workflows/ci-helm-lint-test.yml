@@ -137,4 +137,4 @@ jobs:
         id: install
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-            ct install --target-branch ${{ github.event.repository.default_branch }} --helm-extra-set-args "--set=homeAssistant.setupHacsJobs.enabled=true --set=persistence.enabled=true"
+            ct install --target-branch ${{ github.event.repository.default_branch }} --helm-extra-set-args "--set=homeAssistant.setupHacsJobs.enabled=true --set=persistence.enabled=true --set=persistence.storageClass=local-path"

@@ -90,12 +90,16 @@ autoscaling:
 persistence:
   # -- enable or disable persistent volumes
   enabled: false
+  # -- annotations for your persistent volume
   annotations: {}
-  storageClass: nil
-  # -- use an existing persistent volume claim
-  existingClaim: ""
+  # -- storageClass for your persistent volume. if using vanilla k3s, set to local-path
+  storageClass: ""
+  # -- acccessMode for your persistent volume
   accessMode: "ReadWriteOnce"
+  # -- size of your persistent volume
   size: "8Gi"
+  # -- use an existing persistent volume claim instead of creating one with this chart
+  existingClaim: ""
 
 # -- Additional volumes on the output Deployment definition. example device as volume:
 #

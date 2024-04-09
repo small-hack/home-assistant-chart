@@ -37,8 +37,8 @@ A Helm chart for home assistant on Kubernetes
 | homeAssistant.owner.password | string | `""` | login password of the owner user, ignored if owner.existingSecret is set |
 | homeAssistant.owner.username | string | `"admin"` | login username of the owner user, ignored if owner.existingSecret is set |
 | homeAssistant.scenes | string | `""` | conents of scenes.yaml file to create, ignored if homeAssistant.existingScenesConfigMap set |
-| homeAssistant.setupHacsJobs | object | `{"enabled":true}` | hacs is the [home assistant community store](https://hacs.xyz/) |
-| homeAssistant.setupHacsJobs.enabled | bool | `true` | enable the hacs setup job, requires persistence to be on |
+| homeAssistant.setupHacsJobs | object | `{"enabled":false}` | hacs is the [home assistant community store](https://hacs.xyz/) |
+| homeAssistant.setupHacsJobs.enabled | bool | `false` | enable the hacs setup job, requires persistence to be on |
 | homeAssistant.themes | string | `""` | contents of themes.yaml file to create, ignored if homeAssistant.existingThemesConfigMap set |
 | image.pullPolicy | string | `"IfNotPresent"` | image pullPolicy. If using tag: latest, set image.pullPolicy: Always |
 | image.repository | string | `"ghcr.io/home-assistant/home-assistant"` | image repository that defaults to the official Home Assistant GitHub ghcr.io repo |
@@ -56,12 +56,12 @@ A Helm chart for home assistant on Kubernetes
 | livenessProbe.httpGet.port | string | `"http"` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| persistence.annotations | object | `{}` |  |
+| persistence.accessMode | string | `"ReadWriteOnce"` | acccessMode for your persistent volume |
+| persistence.annotations | object | `{}` | annotations for your persistent volume |
 | persistence.enabled | bool | `false` | enable or disable persistent volumes |
-| persistence.existingClaim | string | `""` | use an existing persistent volume claim |
-| persistence.size | string | `"8Gi"` |  |
-| persistence.storageClass | string | `"nil"` |  |
+| persistence.existingClaim | string | `""` | use an existing persistent volume claim instead of creating one with this chart |
+| persistence.size | string | `"8Gi"` | size of your persistent volume |
+| persistence.storageClass | string | `""` | storageClass for your persistent volume. if using vanilla k3s, set to local-path |
 | podAnnotations | object | `{}` |  |
 | podLabels | object | `{}` | labels to apply to all pods |
 | podSecurityContext | object | `{}` |  |
