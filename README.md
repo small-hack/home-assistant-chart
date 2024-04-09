@@ -1,6 +1,6 @@
 # Home Assistant helm chart
 <a href="https://github.com/small-hack/home-assistant-chart/releases"><img src="https://img.shields.io/github/v/release/small-hack/home-assistant-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a><br />
-Who doesn't need more home assistant helm charts? This is a generic home assistant chart with basic features. It was written for use via [this Argo CD app](https://github.com/small-hack/argocd-apps/tree/main/home-assistant) which we deploy on metal with [`smol-k8s-lab`](https://github.com/small-hack/smol-k8s-lab).
+Who doesn't need more home assistant helm charts? This is a home assistant chart with some quality of life features.
 
 #### Features
 
@@ -244,4 +244,4 @@ homeAssistant:
 ```
 
 ## Status
-Seemingly stable. Feel free to submit PRs and Issues though :)
+Seemingly stable. Feel free to submit PRs and Issues though :) It was originally written for use via [this Argo CD app](https://github.com/small-hack/argocd-apps/tree/main/home-assistant) which we deploy on metal with [`smol-k8s-lab`](https://github.com/small-hack/smol-k8s-lab), but it can be used anywhere.
