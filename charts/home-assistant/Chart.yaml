@@ -17,9 +17,10 @@ type: application
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 version: 0.10.0
 
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Home Assistant versions can be found here:
-# https://github.com/home-assistant/core/releases
+# The appVersion is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Home Assistant versions can be found here: https://github.com/home-assistant/core/releases
+
+# renovate: image=ghcr.io/home-assistant/home-assistant
 appVersion: "2024.5.0"
 
 maintainers:
