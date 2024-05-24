@@ -21,7 +21,7 @@ version: 0.10.2
 # incremented each time you make changes to the application. Home Assistant versions can be found here: https://github.com/home-assistant/core/releases
 
 # renovate: image=ghcr.io/home-assistant/home-assistant
-appVersion: "2024.5.4"
+appVersion: "2024.5.5"
 
 maintainers:
   - name: "jessebot"
