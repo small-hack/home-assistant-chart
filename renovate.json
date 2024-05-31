@@ -20,7 +20,8 @@
           "commands": [
             "bash scripts/bump-chart-version.sh '{{{parentDir}}}' '{{{updateType}}}'"
           ],
-          "fileFilters": ["**/Chart.yaml"]
+          "fileFilters": ["**/Chart.yaml"],
+          "executionMode": "branch"
         }
       }
     ]
