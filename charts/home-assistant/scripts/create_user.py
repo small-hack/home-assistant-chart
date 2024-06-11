@@ -139,13 +139,9 @@ class RunHomeAssistantOnboarding():
 
 
 if __name__ == '__main__':
-    try:
-        onboarding_obj = RunHomeAssistantOnboarding()
-        onboarding_obj.create_user()
-        onboarding_obj.create_token()
-        onboarding_obj.run_core_config()
-        onboarding_obj.run_integration_config()
-        onboarding_obj.run_analytics_config()
-    except Exception as e:
-        print("We ran into an exception:")
-        print(e)
+    onboarding_obj = RunHomeAssistantOnboarding()
+    onboarding_obj.create_user()
+    onboarding_obj.create_token()
+    onboarding_obj.run_core_config()
+    onboarding_obj.run_integration_config()
+    onboarding_obj.run_analytics_config()
