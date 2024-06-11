@@ -58,7 +58,7 @@ class RunHomeAssistantOnboarding():
                     if onboarding_data:
                         # verify the onboarding data section has a done list
                         self.done_list = onboarding_data.get("done", [])
-                        print("Current done list is")
+                        print("Current onboarding done list is:")
                         print(self.done_list)
             else:
                 print("/config/.storage/onboarding file does not exist.")
@@ -76,6 +76,8 @@ class RunHomeAssistantOnboarding():
                                         headers=self.headers)
             if self.debug:
                 print(response.text)
+        else:
+            print("Analytics onboarding task has already been run.")
 
     def run_integration_config(self) -> dict:
         """
@@ -92,6 +94,8 @@ class RunHomeAssistantOnboarding():
                                         headers=self.headers)
             if self.debug:
                 print(response.text)
+        else:
+            print("Integration onboarding task has already been run.")
 
     def run_core_config(self) -> dict:
         """
@@ -107,6 +111,8 @@ class RunHomeAssistantOnboarding():
                                         headers=self.headers)
             if self.debug:
                 print(response.text)
+        else:
+            print("Core config onboarding task has already been run.")
 
     def create_user(self) -> dict:
         """
@@ -151,9 +157,11 @@ class RunHomeAssistantOnboarding():
                 print(f"No auth code was recieved. Response was {response.text}")
 
             return True
+        else:
+            print("Create user onboarding task has already been run.")
 
-        # if we don't create ae user, return False
-        return False
+            # if we don't create ae user, return False
+            return False
 
     def create_token(self) -> dict:
         """
