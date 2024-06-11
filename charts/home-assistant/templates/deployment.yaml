@@ -28,8 +28,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "home-assistant.serviceAccountName" . }}
+      {{- with .Values.securityContext }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- if and (or .Values.homeAssistant.configuration .Values.homeAssistant.existingConfigurationConfigMap) .Values.persistence.enabled }}
       initContainers:
         - name: config-creation
@@ -63,14 +65,26 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
+          {{- if or .Values.homeAssistant.timezone .Values.extraEnv }}
+          env:
+            {{- with .Values.extraEnv }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- if .Values.homeAssistant.timezone }}
+            - name: TZ
+              value: {{ .Values.homeAssistant.timezone }}
+            {{- end }}{{/* end with timezone env var */}}
+          {{- end }}{{/* end check for env vars for home asisstant container */}}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -79,8 +93,10 @@ spec:
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           {{- end }}
+          {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- if or .Values.persistence.enabled .Values.extraVolumeMounts }}
           volumeMounts:
           {{- if .Values.persistence.enabled }}

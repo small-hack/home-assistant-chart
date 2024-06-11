@@ -116,13 +116,22 @@ extraVolumes: []
 #    name: usb
 extraVolumeMounts: []
 
+# -- extra environment variables to pass to the home assistant container, see:
+# https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container
+extraEnv: []
+
 nodeSelector: {}
 
+# -- tolerations to have the home assisant pod tolerate node taints
 tolerations: []
 
+# -- affinity to have the home assisant pod attracted to a specific node
 affinity: {}
 
 homeAssistant:
+  # -- The timezone to use for this container. Use one of the identifers here:
+  # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
+  timezone: ""
   # -- hacs is the [home assistant community store](https://hacs.xyz/)
   setupHacsJobs:
     # -- enable the hacs setup job, requires persistence to be on
