@@ -24,6 +24,10 @@ spec:
               python /scripts/create_user.py && \
               echo "create user script completed"
           volumeMounts:
+            {{- if .Values.persistence.enabled }}
+            - name: config
+              mountPath: /config
+            {{- end }}
             - mountPath: /scripts
               name: scripts
           envFrom:
@@ -40,10 +44,21 @@ spec:
             - name: DEBUG
               value: 'True'
             {{- end }}
+            - name: PVC_CHECK
+              {{- if .Values.persistence.enabled }}
+              value: 'True'
+              {{- else -}}
+              value: ''
+              {{- end }}
       volumes:
         - name: scripts
           configMap:
             name: {{ include "home-assistant.fullname" . }}-create-user-script
             defaultMode: 0555
+        {{- if .Values.persistence.enabled }}
+        - name: config
+          persistentVolumeClaim:
+            claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ include "home-assistant.name" . }}{{- end }}
+        {{- end }}
       restartPolicy: OnFailure
 {{- end }}

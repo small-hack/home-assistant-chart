@@ -1,7 +1,11 @@
 # Author: https://github.com/jessebot
 import json
 from os import environ as env
+from os import path
 import requests
+
+
+PVC_CHECK = env.get("PVC_CHECK", False)
 
 
 class RunHomeAssistantOnboarding():
@@ -18,10 +22,13 @@ class RunHomeAssistantOnboarding():
                      default: "b33pB00p.d4Doop"
 
     # optional environment variables
-    DEBUG        - print all api responses, WARNING includes sensitive data. set to "true"
+    PVC_CHECK      - check an existing PVC's /config directory for onboarding status
+    DEBUG          - print all api responses, WARNING includes sensitive data.
+                     set to "true"
     ADMIN_NAME     - name of the first owner user, default: 'admin'
     ADMIN_USERNAME - login username of first owner user, default: 'admin'
-    ADMIN_LANGUAGE - 2 character string of initial owner user's language, default "en"
+    ADMIN_LANGUAGE - 2 character string of initial owner user's language,
+                     default "en".
 
     home assistant user onboarding urls found here:
     https://github.com/home-assistant/core/tree/dev/homeassistant/components/onboarding/views.py
@@ -35,16 +42,36 @@ class RunHomeAssistantOnboarding():
         self.external_url = env.get('EXTERNAL_URL', self.base_url)
         self.debug = env.get('DEBUG', False)
 
+        # a list of onboarding tasks that have already been done
+        self.done_list = []
+        if PVC_CHECK == 'True':
+            print("Looks like we're using persistence. Let's check if "
+                  "onboarding has already been run...")
+
+            # verify the onboarding status file exists
+            if path.exists("/config/.storage/onboarding"):
+                with open("/config/.storage/onboarding") as onboarding_file:
+                    onboarding_json = json.load(onboarding_file)
+
+                    # verify the onboarding status file has a data section
+                    onboarding_data = onboarding_json.get("data", "")
+                    if onboarding_data:
+                        # verify the onboarding data section has a done list
+                        self.done_list = onboarding_data.get("done", [])
+
     def run_analytics_config(self) -> dict:
         """
         runs the analytics config step of onboarding via the home assistant api
         """
-        analytics_url = f"{self.base_url}/api/onboarding/analytics"
-        print(f"We're going to post to {analytics_url} for analytics setup")
+        if "analytics" not in self.done_list:
+            analytics_url = f"{self.base_url}/api/onboarding/analytics"
+            print(f"We're going to post to {analytics_url} for analytics setup")
 
-        response = requests.request("POST", analytics_url, headers=self.headers)
-        if self.debug:
-            print(response.text)
+            response = requests.request("POST",
+                                        analytics_url,
+                                        headers=self.headers)
+            if self.debug:
+                print(response.text)
 
     def run_integration_config(self) -> dict:
         """
@@ -52,61 +79,72 @@ class RunHomeAssistantOnboarding():
 
         may not be working 🤷, however this doesn't break the onboarding.
         """
-        integration_url = f"{self.base_url}/api/onboarding/integration"
-        print(f"We're going to post to {integration_url} for integration config")
+        if "integration" not in self.done_list:
+            integration_url = f"{self.base_url}/api/onboarding/integration"
+            print(f"We're going to post to {integration_url} for integration config")
 
-        response = requests.request("POST", integration_url, headers=self.headers)
-        if self.debug:
-            print(response.text)
+            response = requests.request("POST",
+                                        integration_url,
+                                        headers=self.headers)
+            if self.debug:
+                print(response.text)
 
     def run_core_config(self) -> dict:
         """
         runs the core config step of onboarding via the home assistant api
         """
-        core_config_url = f"{self.base_url}/api/onboarding/core_config"
-        print(f"We're going to post to {core_config_url} for finishing the core config")
+        if "core_config" not in self.done_list:
+            core_config_url = f"{self.base_url}/api/onboarding/core_config"
+            print(f"We're going to post to {core_config_url} for finishing the "
+                  "core config")
 
-        response = requests.request("POST", core_config_url, headers=self.headers)
-        if self.debug:
-            print(response.text)
+            response = requests.request("POST",
+                                        core_config_url,
+                                        headers=self.headers)
+            if self.debug:
+                print(response.text)
 
     def create_user(self) -> dict:
         """
         creates a user via the home assistant api
         """
-        user_url = f"{self.base_url}/api/onboarding/users"
-        print(f"We're going to post to {user_url} for user creation")
+        if "user" not in self.done_list:
+            user_url = f"{self.base_url}/api/onboarding/users"
+            print(f"We're going to post to {user_url} for user creation")
 
-        client_id = self.external_url
-        if not client_id:
-            client_id = self.base_url + "/"
+            client_id = self.external_url
+            if not client_id:
+                client_id = self.base_url + "/"
 
-        payload = json.dumps({
-          "client_id": client_id,
-          "name": env.get('ADMIN_NAME', 'admin'),
-          "username": env.get('ADMIN_USERNAME', 'admin'),
-          "password": env.get('ADMIN_PASSWORD', "b33pB00p.d4Doop"),
-          "language": env.get('ADMIN_LANGUAGE', 'en')
-        })
+            payload = json.dumps({
+              "client_id": client_id,
+              "name": env.get('ADMIN_NAME', 'admin'),
+              "username": env.get('ADMIN_USERNAME', 'admin'),
+              "password": env.get('ADMIN_PASSWORD', "b33pB00p.d4Doop"),
+              "language": env.get('ADMIN_LANGUAGE', 'en')
+            })
 
-        # this is the api request actually creates the new user and returns something like:
-        # {"auth_code":"23456y7uiobgdfghjm54873hfjkdfghj"}
-        response = requests.request("POST", user_url, headers=self.headers, data=payload)
-        if self.debug:
-            print(response.text)
+            # this is the api request actually creates the new user and returns
+            # something like: {"auth_code":"23456y7uiobgdfghjm54873hfjkdfghj"}
+            response = requests.request("POST",
+                                        user_url,
+                                        headers=self.headers,
+                                        data=payload)
+            if self.debug:
+                print(response.text)
 
-        # update the self cache to include the authorization token
-        try:
-            self.auth_code = response.json().get("auth_code", "")
-        except Exception as e:
-            print("No auth code was recieved for user. Got response:")
-            print(e)
-            print("###### response.text is ######")
-            print(response.text)
-            print("###### end response.text ######")
+            # update the self cache to include the authorization token
+            try:
+                self.auth_code = response.json().get("auth_code", "")
+            except Exception as e:
+                print("No auth code was recieved for user. Got response:")
+                print(e)
+                print("###### response.text is ######")
+                print(response.text)
+                print("###### end response.text ######")
 
-        if not self.auth_code:
-            print(f"No auth code was recieved. Response was {response.text}")
+            if not self.auth_code:
+                print(f"No auth code was recieved. Response was {response.text}")
 
     def create_token(self) -> dict:
         """
@@ -152,3 +190,4 @@ if __name__ == '__main__':
     onboarding_obj.run_core_config()
     onboarding_obj.run_integration_config()
     onboarding_obj.run_analytics_config()
+    print("Home Assistant onboarding script has finished.")
