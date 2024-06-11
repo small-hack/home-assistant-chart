@@ -96,7 +96,10 @@ class RunHomeAssistantOnboarding():
             print(response.text)
 
         # update the self cache to include the authorization token
-        self.auth_code = response.json()["auth_code"]
+        self.auth_code = response.json().get("auth_code", "")
+
+        if not self.auth_code:
+            print(f"No auth code was recieved. Response was {response.text}")
 
     def create_token(self) -> dict:
         """
