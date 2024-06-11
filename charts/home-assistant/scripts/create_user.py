@@ -150,6 +150,11 @@ class RunHomeAssistantOnboarding():
             if not self.auth_code:
                 print(f"No auth code was recieved. Response was {response.text}")
 
+            return True
+
+        # if we don't create ae user, return False
+        return False
+
     def create_token(self) -> dict:
         """
         create a token for further actions
@@ -189,9 +194,12 @@ class RunHomeAssistantOnboarding():
 
 if __name__ == '__main__':
     onboarding_obj = RunHomeAssistantOnboarding()
-    onboarding_obj.create_user()
-    onboarding_obj.create_token()
-    onboarding_obj.run_core_config()
-    onboarding_obj.run_integration_config()
-    onboarding_obj.run_analytics_config()
+
+    user_created = onboarding_obj.create_user()
+    if user_created:
+        onboarding_obj.create_token()
+        onboarding_obj.run_core_config()
+        onboarding_obj.run_integration_config()
+        onboarding_obj.run_analytics_config()
+
     print("Home Assistant onboarding script has finished.")
