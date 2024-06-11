@@ -96,7 +96,14 @@ class RunHomeAssistantOnboarding():
             print(response.text)
 
         # update the self cache to include the authorization token
-        self.auth_code = response.json().get("auth_code", "")
+        try:
+            self.auth_code = response.json().get("auth_code", "")
+        except Exception as e:
+            print("No auth code was recieved for user. Got response:")
+            print(e)
+            print("###### response.text is ######")
+            print(response.text)
+            print("###### end response.text ######")
 
         if not self.auth_code:
             print(f"No auth code was recieved. Response was {response.text}")
