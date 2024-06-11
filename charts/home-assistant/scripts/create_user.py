@@ -5,7 +5,7 @@ from os import path
 import requests
 
 
-PVC_CHECK = env.get("PVC_CHECK", False)
+PVC_CHECK = env.get("PVC_CHECK", 'False')
 
 
 class RunHomeAssistantOnboarding():

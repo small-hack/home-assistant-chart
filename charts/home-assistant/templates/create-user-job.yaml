@@ -47,8 +47,8 @@ spec:
             - name: PVC_CHECK
               {{- if .Values.persistence.enabled }}
               value: 'True'
-              {{- else -}}
-              value: ''
+              {{- else }}
+              value: 'False'
               {{- end }}
       volumes:
         - name: scripts
