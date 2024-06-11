@@ -58,6 +58,10 @@ class RunHomeAssistantOnboarding():
                     if onboarding_data:
                         # verify the onboarding data section has a done list
                         self.done_list = onboarding_data.get("done", [])
+                        print("Current done list is")
+                        print(self.done_list)
+            else:
+                print("/config/.storage/onboarding file does not exist.")
 
     def run_analytics_config(self) -> dict:
         """
