@@ -244,4 +244,4 @@ homeAssistant:
 ```
 
 ## Status
-Seemingly stable. Feel free to submit PRs and Issues though :) It was originally written for use via [this Argo CD app](https://github.com/small-hack/argocd-apps/tree/main/home-assistant) which we deploy on metal with [`smol-k8s-lab`](https://github.com/small-hack/smol-k8s-lab), but it can be used anywhere.
+Seemingly stable. Feel free to submit PRs and Issues though :) It was originally written for use via [this Argo CD app](https://github.com/small-hack/argocd-apps/tree/main/home-assistant) which we deploy on metal with [`smol-k8s-lab`](https://github.com/small-hack/smol-k8s-lab), but it can be used anywhere. The [docker image](https://github.com/home-assistant/core/pkgs/container/home-assistant) is kept up to date with [RenovateBot](https://docs.renovatebot.com/).
