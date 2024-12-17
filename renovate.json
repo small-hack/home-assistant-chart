@@ -34,7 +34,7 @@
                 "fileFilters": ["**/Chart.yaml"],
                 "executionMode": "branch"
             },
-            "matchUpdateTypes": ["major""]
+            "matchUpdateTypes": ["major"]
         },
         {
             "matchManagers": ["github-actions"],
