@@ -39,6 +39,7 @@
         {
             "matchManagers": ["github-actions"],
             "matchUpdateTypes": ["patch", "minor"],
+            "automergeType": "branch",
             "automerge": true,
             "ignoreTests": true
         } 
