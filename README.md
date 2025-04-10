@@ -215,6 +215,13 @@ extraVolumeMounts:
     readOnly: true
 ```
 
+Keep in mind that if you're using a USB device, you may only be able to use it with one pod at a time, so you would need to also set the deployment strategy to `"Recreate"` so that the Deployment deletes one pod before creating another, instead of `"RollingUpdate"` which is the default Deployment behavior which will create another pod and make sure it's ready before deleting the old pod. If set to `"RollingUpdate"` (the default for all Deployments), the old pod may indefinitely hold device and prevent the new pod from spinning up as the device is not available. Example for your `values.yaml`:
+
+```yaml
+strategy:
+  type: Recreate
+```
+
 ### Bluetooth devices
 
 If you're on metal and using a USB bluetooth apator of some sort, the process is a little different from the above USB Devices section. You probably want to mount dbus. See a `values.yaml` example here:
