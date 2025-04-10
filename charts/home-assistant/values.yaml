@@ -1,4 +1,9 @@
+# -- deployment replicas: number of replica pods to deploy
 replicaCount: 1
+
+strategy:
+  # -- strategy type for the deployment updates. options: "RollingUpdate" or "Recreate"
+  type: RollingUpdate
 
 image:
   # -- image repository that defaults to the official Home Assistant GitHub ghcr.io repo
