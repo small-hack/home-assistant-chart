@@ -37,7 +37,7 @@
             "matchUpdateTypes": ["major"]
         },
         {
-            "matchManagers": ["github-actions"],
+            "matchManagers": ["github-actions", "helm-values"],
             "matchUpdateTypes": ["patch", "minor"],
             "automergeType": "branch",
             "automerge": true,
