@@ -13,6 +13,20 @@ entries:
     version: 0.1.0
   home-assistant:
   - apiVersion: v2
+    appVersion: 2025.7.2
+    created: "2025-08-17T10:24:30.056028549Z"
+    description: A Helm chart for home assistant on Kubernetes
+    digest: 2e5ad03efd52fa4e5dd6e41474fb140a6819b564c4c4c71a325a834988a4feef
+    maintainers:
+    - email: jessebot@linux.com
+      name: jessebot
+      url: https://github.com/jessebot
+    name: home-assistant
+    type: application
+    urls:
+    - https://github.com/small-hack/home-assistant-chart/releases/download/home-assistant-1.7.1/home-assistant-1.7.1.tgz
+    version: 1.7.1
+  - apiVersion: v2
     appVersion: 2025.7.1
     created: "2025-07-13T12:19:17.61571354Z"
     description: A Helm chart for home assistant on Kubernetes
@@ -802,4 +816,4 @@ entries:
     urls:
     - https://github.com/jessebot/home-assistant-helm/releases/download/home-assistant-0.1.1/home-assistant-0.1.1.tgz
     version: 0.1.1
-generated: "2025-07-13T12:19:17.615946886Z"
+generated: "2025-08-17T10:24:30.056216582Z"
