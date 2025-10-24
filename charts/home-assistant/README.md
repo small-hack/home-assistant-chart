@@ -1,6 +1,6 @@
 # home-assistant
 
-![Version: 1.8.1](https://img.shields.io/badge/Version-1.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2025.8.3](https://img.shields.io/badge/AppVersion-2025.8.3-informational?style=flat-square)
+![Version: 1.9.0](https://img.shields.io/badge/Version-1.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2025.10.3](https://img.shields.io/badge/AppVersion-2025.10.3-informational?style=flat-square)
 
 A Helm chart for home assistant on Kubernetes
 
@@ -73,6 +73,7 @@ A Helm chart for home assistant on Kubernetes
 | replicaCount | int | `1` | deployment replicas: number of replica pods to deploy |
 | resources | object | `{}` | resource requests and limits. example: for requesting a USB device from the    [generic device plugin](https://github.com/squat/generic-device-plugin)   limits:    squat.ai/serial: 1 |
 | securityContext | object | `{}` |  |
+| service.annotations | object | `{}` |  |
 | service.port | int | `80` | default port to expose |
 | service.targetPort | int | `8123` | default port for the home home-assistant container |
 | service.type | string | `"ClusterIP"` |  |
