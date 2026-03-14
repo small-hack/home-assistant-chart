@@ -1,3 +1,15 @@
+# Notice of migration
+
+We've moved this chart to:
+
+https://git.smallhack.org/small-hack/home-assistant-chart
+
+Which is also mirrored to:
+
+https://codeberg.org/small-hack/home-assistant-chart
+
+Please open all future Issues and Pull Requests on codeberg 🙏
+
 # Home Assistant helm chart
 <a href="https://github.com/small-hack/home-assistant-chart/releases"><img src="https://img.shields.io/github/v/release/small-hack/home-assistant-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a><br />
 Who doesn't need more home assistant helm charts? This is a home assistant chart with some quality of life features.
