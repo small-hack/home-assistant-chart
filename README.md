@@ -2,7 +2,7 @@
 
 We've moved this chart to:
 
-https://codeberg.org/small-hack/home-assistant-chart
+https://codeberg.org/open-engineering/home-assistant-chart
 
 Please open all future Issues and Pull Requests on codeberg 🙏
 
