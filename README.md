@@ -2,21 +2,17 @@
 
 We've moved this chart to:
 
-https://git.smallhack.org/small-hack/home-assistant-chart
-
-Which is also mirrored to:
-
 https://codeberg.org/small-hack/home-assistant-chart
 
 Please open all future Issues and Pull Requests on codeberg 🙏
 
 # Home Assistant helm chart
-<a href="https://github.com/small-hack/home-assistant-chart/releases"><img src="https://img.shields.io/github/v/release/small-hack/home-assistant-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a><br />
+<a href="https://github.com/open-engineering-nl/home-assistant-chart/releases"><img src="https://img.shields.io/github/v/release/open-engineering-nl/home-assistant-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a><br />
 Who doesn't need more home assistant helm charts? This is a home assistant chart with some quality of life features.
 
 #### Features
 
-- values are documented [here](https://github.com/small-hack/home-assistant-chart/tree/main/charts/home-assistant#values) using [helm-docs](https://github.com/norwoodj/helm-docs)
+- values are documented [here](https://github.com/open-engineering-nl/home-assistant-chart/tree/main/charts/home-assistant#values) using [helm-docs](https://github.com/norwoodj/helm-docs)
 - Put a default `configuration.yaml`, `themes.yaml`, `automations.yaml`, and `scenes.yaml` in a place of your choosing with either:
   - your own ConfigMap
   - specifying an in-line yaml string for us to render as a ConfigMap for you
@@ -263,4 +259,4 @@ homeAssistant:
 ```
 
 ## Status
-Seemingly stable. Feel free to submit PRs and Issues though :) It was originally written for use via [this Argo CD app](https://github.com/small-hack/argocd-apps/tree/main/home-assistant) which we deploy on metal with [`smol-k8s-lab`](https://github.com/small-hack/smol-k8s-lab), but it can be used anywhere. The [docker image](https://github.com/home-assistant/core/pkgs/container/home-assistant) is kept up to date with [RenovateBot](https://docs.renovatebot.com/).
+Seemingly stable. Feel free to submit PRs and Issues though :) It was originally written for use via [this Argo CD app](https://codeberg.org/open-engineering/argocd-apps/src/main/home-assistant) which we deploy on metal with [`smol-k8s-lab`](https://codeberg.org/open-engineering/smol-k8s-lab), but it can be used anywhere. The [docker image](https://github.com/home-assistant/core/pkgs/container/home-assistant) is kept up to date with [RenovateBot](https://docs.renovatebot.com/).
